@@ -2,8 +2,8 @@
   "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
   "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
   "NETWORK": {
-    "NAME": "Polygon",
-    "SYMBOL": "Matic",
+    "NAME": "Ethereum",
+    "SYMBOL": "ETH",
     "ID": 137
   },
   "NFT_NAME": "Nerdy Coder Clones",

@@ -10,13 +10,13 @@ const truncate = (input, len) =>
 
 export const StyledButton = styled.button`
   padding: 10px;
-  border-radius: 50px;
+  border-radius: 40px;
   border: none;
   background-color: var(--secondary);
   padding: 10px;
   font-weight: bold;
   color: var(--secondary-text);
-  width: 100px;
+  width: 150px;
   cursor: pointer;
   box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
   -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
@@ -75,10 +75,10 @@ export const StyledLogo = styled.img`
 `;
 
 export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  border: none;
   background-color: var(--accent);
-  border-radius: 100%;
+  border-radius: 0%;
   width: 200px;
   @media (min-width: 900px) {
     width: 250px;
@@ -195,41 +195,124 @@ function App() {
 
   return (
     <s.Screen>
+
+			{/* Header section */}
       <s.Container
         flex={1}
-        ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+				fd={"column"}
+				jc={"space-between"}
+        ai={"right"}
+        style={{ padding: 20, backgroundColor: "#ABF0D1" }}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+			
+				<s.Container
+					flex={1}
+					fd={"row"}
+					jc={"space-between"}
+					ai={"right"}
+					style={{ padding: 20, backgroundColor: "#ABF0D1" }}
+				>
+					<s.TextTitle
+						style={{
+							textAlign: "right",
+							fontSize: 25,
+							color: "var(--accent-text)",
+						}}
+					>
+						Follow On
+					</s.TextTitle>
+					<StyledButton
+		        style={{
+							color: "#000000",
+							backgroundColor: "#FFFFFF",
+						}}
+						onClick={(e) => {
+							e.preventDefault();
+							dispatch(connect());
+							getData();
+						}}
+
+
+					>
+						Connect Wallet
+					</StyledButton>
+					{blockchain.errorMsg !== "" ? (
+						<>
+							<s.SpacerSmall />
+							<s.TextDescription
+								style={{
+									textAlign: "center",
+									color: "var(--accent-text)",
+								}}
+							>
+								{blockchain.errorMsg}
+							</s.TextDescription>
+						</>
+					) : null}
+				</s.Container>
         <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
+			  <StyledImg
+						alt={"Kind Mints"}
+						src={"/config/images/booger_belly_assets/text/kind_mints_title.png"}
+						style={{ backgroundColor: "#ABF0D1", justifyContent: "center", alignSelf: "center"}}
+				 />
+         <s.SpacerSmall />
+			   <StyledImg
+						alt={"Kind Mints"}
+						src={"/config/images/booger_belly_assets/text/mint_art_do_good.png"}
+						style={{ backgroundColor: "#ABF0D1", justifyContent: "center", alignSelf: "center"}}
+				 />
+			</s.Container>
+
+
+
+			{/* Main body - 1st section */}
+
+			<s.Container
+        flex={1}
+        ai={"left"}
+        style={{ padding: 24, backgroundColor: "#FFCF83" }}
+			>
+		
+				
+			  <StyledImg
+						alt={"Booger Bellys"}
+						src={"/config/images/booger_belly_assets/text/booger_bellys_section.png"}
+						style={{ backgroundColor: "#FFCF83", justifyContent: "center", alignSelf: "center"}}
+				/>
+				<s.TextTitle
+					style={{
+						textAlign: "center",
+						fontSize: 50,
+						fontWeight: "bold",
+						color: "var(--accent-text)",
+					}}
+				>
+					{data.totalSupply} / {CONFIG.MAX_SUPPLY}
+				</s.TextTitle>
+		    
+
+
+				{/* Section containing text */}
+        <ResponsiveWrapper flex={1} style={{ padding: 0 }} test>
+
+					{/*
           <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg alt={"example"} src={"/config/images/example.gif"} />
           </s.Container>
-          <s.SpacerLarge />
+					*/}
+
           <s.Container
             flex={2}
             jc={"center"}
             ai={"center"}
             style={{
               backgroundColor: "var(--accent)",
-              padding: 24,
-              borderRadius: 24,
-              border: "4px dashed var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+              padding: 0,
+              borderRadius: 0,
+              border: "4px var(--secondary)",
             }}
           >
-            <s.TextTitle
-              style={{
-                textAlign: "center",
-                fontSize: 50,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
-              }}
-            >
-              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
-            </s.TextTitle>
             <s.TextDescription
               style={{
                 textAlign: "center",
@@ -369,7 +452,8 @@ function App() {
             )}
             <s.SpacerMedium />
           </s.Container>
-          <s.SpacerLarge />
+					
+					{/*
           <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg
               alt={"example"}
@@ -377,6 +461,7 @@ function App() {
               style={{ transform: "scaleX(-1)" }}
             />
           </s.Container>
+					*/}
         </ResponsiveWrapper>
         <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
@@ -403,6 +488,32 @@ function App() {
           </s.TextDescription>
         </s.Container>
       </s.Container>
+
+
+			{/* Main body - 2nd section */}
+			<s.Container background={"test"}>
+				<s.TextDescription
+					style={{
+						textAlign: "center",
+						color: "var(--primary-text)"
+					}}
+				>
+					This is test container
+				</s.TextDescription>
+          <s.Container
+            flex={2}
+            jc={"center"}
+            ai={"center"}
+            style={{
+              backgroundColor: "var(--accent)",
+              padding: 24,
+              borderRadius: 24,
+              border: "4px var(--secondary)",
+              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+            }}
+          >
+					</s.Container>
+			</s.Container>
     </s.Screen>
   );
 }
