@@ -1,3 +1,22 @@
+# USE CTRL + F AND TYPE "replace"
+▬ REPLACE ALL LINES OF CODE CONTAINING "REPLACE" IN THE BELOW FILES WITH CORRESPONDING VALUES TO GET EVERYTHING TO WORK
+► index.html (public > index.html)
+► manifest.json (public > manifest.json)
+► theme (public > theme.css)
+► config.json (public > config > config.js)
+► abi.json (public > config > abi.json) 
+
+▬ FOR THE FOLLOWING, WE NEED TO REPLACE THE IMAGES, BUT KEEP THE FILE NAME AND DIMENSIONS. YOU CAN USE THIS LINK TO RESIZE IMAGES https://resizeimage.net
+* Note we can also add or switch out these pictures/GIFs if they are different sizes, you just have to remember to make the changes in the MintPage.js file
+► favicon (public > favicon.ico)
+► logo192 (public > logo192.png)
+► logo512 (public > logo512.png)
+► background (public > images > bg.png)
+► example GIF (public > images > example.gif)
+► logo (public > images > logo.png)
+
+* Note, everything stated above summarizes what is below. For more detail on the process of setting up the site, keep reading
+
 # Welcome to HashLips 👄
 
 ![](https://github.com/HashLips/hashlips_nft_minting_dapp/blob/main/logo.png)
@@ -48,7 +67,7 @@ For the most part all the changes will be in the `public` folder.
 
 To link up your existing smart contract, go to the `public/config/config.json` file and update the following fields to fit your smart contract, network and marketplace details. The cost field should be in wei.
 
-Note: this dapp is designed to work with the intended NFT smart contract, that only takes one parameter in the mint function "mintAmount". But you can change that in the App.js file if you need to use a smart contract that takes 2 params.
+Note: this dapp is designed to work with the intended NFT smart contract, that only takes one parameter in the mint function "mintAmount". But you can change that in the MintPage.js file if you need to use a smart contract that takes 2 params.
 
 ```json
 {

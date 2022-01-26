@@ -1,6 +1,7 @@
+# WE CAN CHANGE THE SIZE OF OUR IMAGES HERE, JUST CHANGE THE CORRESPONDING VALUES. DELETE THIS LINE WHEN READY TO BUILD
 {
-  "short_name": "NCC",
-  "name": "Coder Clone NFT",
+  "short_name": "*REPLACE WITH COLLECTION SYMBOL*",
+  "name": "*REPLACE WITH COLLECTION NAME*",
   "icons": [
     {
       "src": "favicon.ico",
