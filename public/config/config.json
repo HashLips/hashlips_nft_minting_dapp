@@ -1,11 +1,11 @@
 {
-  "CONTRACT_ADDRESS": "0x75564Fce50Fa9a910578AC1eD608821dDe0aA749",
-  "SCAN_LINK": "https://testnet.ftmscan.com/address/0x75564Fce50Fa9a910578AC1eD608821dDe0aA749",
+  "CONTRACT_ADDRESS": "0xD02e21b143df16058b9D65d47546a33d1b312b90",
+  "SCAN_LINK": "https://ftmscan.com/address/0xd02e21b143df16058b9d65d47546a33d1b312b90",
   "SETUP_LINK": "https://docs.fantom.foundation/tutorials/set-up-metamask",
   "NETWORK": {
-    "NAME": "Fantom Testnet",
+    "NAME": "Fantom Opera",
     "SYMBOL": "FTM",
-    "ID": 4002 
+    "ID": 250 
   },
   "NFT_NAME": "Fantom Pills OG's Edition",
   "SYMBOL": "FPILLS",
@@ -13,7 +13,7 @@
   "WEI_COST": 15000000000000000000,
   "DISPLAY_COST": 15,
   "GAS_LIMIT": 285000,
-  "MARKETPLACE": "#",
-  "MARKETPLACE_LINK": "#",
+  "MARKETPLACE": "Opera House",
+  "MARKETPLACE_LINK": "https://operahouse.online/",
   "SHOW_BACKGROUND": true
 }

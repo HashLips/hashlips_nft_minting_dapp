@@ -146,7 +146,7 @@ function App() {
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit ${CONFIG.MARKETPLACE_LINK} to view it.`
         );
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
@@ -212,7 +212,7 @@ function App() {
             ai={"center"}
             style={{
               backgroundColor: "var(--accent)",
-              padding: 40,
+              padding: 20,
               borderRadius: 15,
               border: "none",
               boxShadow: "none",
@@ -226,13 +226,13 @@ function App() {
           <StyledImg alt={"og'spills gif"} src={"/config/images/pillsgif.gif"} style={{
               border: "none",
               boxShadow: "none",
-              maxWidth:240
+              maxWidth:220
             }} />
         </s.Container>
             <s.TextTitle
               style={{
                 textAlign: "center",
-                fontSize: 50,
+                fontSize: 40,
                 fontWeight: "bold",
                 color: "var(--accent-text)",
               }}
@@ -276,14 +276,14 @@ function App() {
             ) : (
               <>
                 <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)", fontSize: 30, }}
+                  style={{ textAlign: "center", color: "var(--accent-text)", fontSize: 24, }}
                 >
                   1 OG's Pill costs {CONFIG.DISPLAY_COST}{" $"}
                   {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
-                  style={{ textAlign: "center", fontStyle: "italic", fontWeight:"lighter", color: "var(--accent-text)" }}
+                  style={{ textAlign: "center", fontStyle: "italic", fontSize:14, fontWeight:"lighter", color: "var(--accent-text)" }}
                 >
                   Excluding gas fees.
                 </s.TextDescription>
