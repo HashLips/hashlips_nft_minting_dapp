@@ -4,7 +4,8 @@
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
-    "ID": 137
+    "ID": 137,
+    "HEX_ID":"0x89"
   },
   "NFT_NAME": "Nerdy Coder Clones",
   "SYMBOL": "NCC",
