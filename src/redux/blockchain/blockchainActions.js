@@ -1,6 +1,7 @@
 // constants
 import Web3EthContract from "web3-eth-contract";
 import Web3 from "web3";
+import detectEthereumProvider from "@metamask/detect-provider";
 // log
 import { fetchData } from "../data/dataActions";
 
@@ -49,8 +50,9 @@ export const connect = () => {
     });
     const CONFIG = await configResponse.json();
     const { ethereum } = window;
-    const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
-    if (metamaskIsInstalled) {
+    const provider = await detectEthereumProvider();
+    
+    if (provider) {
       Web3EthContract.setProvider(ethereum);
       let web3 = new Web3(ethereum);
       try {
@@ -58,7 +60,7 @@ export const connect = () => {
           method: "eth_requestAccounts",
         });
         const networkId = await ethereum.request({
-          method: "net_version",
+          method: "eth_chainId",
         });
         if (networkId == CONFIG.NETWORK.ID) {
           const SmartContractObj = new Web3EthContract(
@@ -78,10 +80,14 @@ export const connect = () => {
           });
           ethereum.on("chainChanged", () => {
             window.location.reload();
-          });
+          })
           // Add listeners end
         } else {
-          dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
+          //dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{chainId:CONFIG.NETWORK.HEX_ID}],
+          })
         }
       } catch (err) {
         dispatch(connectFailed("Something went wrong."));
