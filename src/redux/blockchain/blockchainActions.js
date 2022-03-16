@@ -1,8 +1,8 @@
 // constants
 import Web3EthContract from "web3-eth-contract";
 import Web3 from "web3";
-import abi from '../../abi'
-import CONFIG from '../../config'
+import abi from '../../abi';
+import CONFIG from '../../config';
 // log
 import { fetchData } from "../data/dataActions";
 
