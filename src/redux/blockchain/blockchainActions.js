@@ -1,5 +1,4 @@
 // constants
-import Web3EthContract from "web3-eth-contract";
 import Web3 from "web3";
 // log
 import { fetchData } from "../data/dataActions";
@@ -48,20 +47,15 @@ export const connect = () => {
       },
     });
     const CONFIG = await configResponse.json();
-    const { ethereum } = window;
-    const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
-    if (metamaskIsInstalled) {
-      Web3EthContract.setProvider(ethereum);
-      let web3 = new Web3(ethereum);
+
+    const provider = Web3.givenProvider
+    if (provider) {
+      const web3 = new Web3(provider);
       try {
-        const accounts = await ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const networkId = await ethereum.request({
-          method: "net_version",
-        });
+        const accounts = await web3.eth.requestAccounts();
+        const networkId = await web3.eth.net.getId();
         if (networkId == CONFIG.NETWORK.ID) {
-          const SmartContractObj = new Web3EthContract(
+          const SmartContractObj = new web3.eth.Contract(
             abi,
             CONFIG.CONTRACT_ADDRESS
           );
@@ -72,14 +66,19 @@ export const connect = () => {
               web3: web3,
             })
           );
-          // Add listeners start
-          ethereum.on("accountsChanged", (accounts) => {
+          
+          const { ethereum } = window;
+          const metamask = ethereum?.isMetaMask && ethereum;
+          if (!metamask) return; // metamask specific API can be used safely below this logic gate
+
+          // Add metamask listeners start
+          metamask.on("accountsChanged", (accounts) => {
             dispatch(updateAccount(accounts[0]));
           });
-          ethereum.on("chainChanged", () => {
+          metamask.on("chainChanged", () => {
             window.location.reload();
           });
-          // Add listeners end
+          // Add metamask listeners end
         } else {
           dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
         }
