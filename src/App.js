@@ -123,6 +123,7 @@ function App() {
   const claimNFTs = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
+    let baseFee = String(33000000000);
     let totalCostWei = String(cost * mintAmount);
     let totalGasLimit = String(gasLimit * mintAmount);
     console.log("Cost: ", totalCostWei);
@@ -133,6 +134,8 @@ function App() {
       .mint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
+        maxFeePerGas: baseFee,
+        maxPriorityFeePerGas: baseFee,
         to: CONFIG.CONTRACT_ADDRESS,
         from: blockchain.account,
         value: totalCostWei,
