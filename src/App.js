@@ -16,7 +16,7 @@ export const StyledButton = styled.button`
   padding: 10px;
   font-weight: bold;
   color: var(--secondary-text);
-  width: 100px;
+  width: 150px;
   cursor: pointer;
   box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
   -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
@@ -99,7 +99,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click Touch Grass to mint your own GRASS.`);
+  const [feedback, setFeedback] = useState(`Click "Touch Grass" to mint your own GRASS.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -294,7 +294,7 @@ function App() {
                     >
                       CONNECT
                     </StyledButton>
-                    {blockchain.errorMsg !== "" ? (
+                    {blockchain.errorMsg !== "Touching GRASS" ? (
                       <>
                         <s.SpacerSmall />
                         <s.TextDescription
