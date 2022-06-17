@@ -223,7 +223,7 @@ function App() {
             jc={"center"} 
             ai={"center"}
             >
-          <StyledImg alt={"og'spills gif"} src={"/config/images/pillsgif.gif"} style={{
+          <StyledImg alt={"simple fellas gif"} src={"/config/images/simplefellas.gif"} style={{
               border: "none",
               boxShadow: "none",
               maxWidth:220
@@ -267,7 +267,7 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  The sale has ended.
+                  The sale has ended. You can find them at NFTKET and OPERA HOUSE marketplaces.
                 </s.TextTitle>
           
                 <s.SpacerSmall />
@@ -278,7 +278,7 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)", fontSize: 24, }}
                 >
-                  1 OG's Pill costs {CONFIG.DISPLAY_COST}{" $"}
+                  1 Simple Fella costs {CONFIG.DISPLAY_COST}{" $"}
                   {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
                 <s.SpacerXSmall />
@@ -286,6 +286,11 @@ function App() {
                   style={{ textAlign: "center", fontStyle: "italic", fontSize:14, fontWeight:"lighter", color: "var(--accent-text)" }}
                 >
                   Excluding gas fees.
+                </s.TextDescription>
+                <s.TextDescription
+                  style={{ textAlign: "center", fontStyle: "italic", fontSize:14, fontWeight:"lighter", color: "var(--accent-text)" }}
+                >
+                  After sucessfully minting, check NFTKEY or OPERA HOUSE profile page.
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
@@ -307,7 +312,7 @@ function App() {
                         getData();
                       }}
                     >
-                      CONNECT YOUR WALLET
+                      PLEASE CONNECT YOUR WALLET
                     </StyledButton>
                     {blockchain.errorMsg !== "" ? (
                       <>
@@ -363,7 +368,7 @@ function App() {
                           color: "var(--accent-text)",
                         }} 
                       >
-                        {"  💊"} 
+                        {"  🧍‍♂️"} 
                       </s.TextDescription>
                       <s.SpacerMedium />
                       <StyledRoundButton
@@ -436,7 +441,7 @@ function App() {
             }}
           >
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your OG's fPill. We recommend that you don't lower the
+            successfully mint your NFT. We recommend that you don't lower the
             gas limit.
           </s.TextDescription>
         </s.Container>
