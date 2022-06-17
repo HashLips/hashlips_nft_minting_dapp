@@ -1,19 +1,19 @@
 {
-  "CONTRACT_ADDRESS": "0xD02e21b143df16058b9D65d47546a33d1b312b90",
-  "SCAN_LINK": "https://ftmscan.com/address/0xd02e21b143df16058b9d65d47546a33d1b312b90",
+  "CONTRACT_ADDRESS": "0x9fc4e390395177d6d5f1ed013c24f260df301cff",
+  "SCAN_LINK": "https://ftmscan.com/address/0x9fc4e390395177d6d5f1ed013c24f260df301cff",
   "SETUP_LINK": "https://docs.fantom.foundation/tutorials/set-up-metamask",
   "NETWORK": {
     "NAME": "Fantom Opera",
     "SYMBOL": "FTM",
     "ID": 250 
   },
-  "NFT_NAME": "Fantom Pills OG's Edition",
-  "SYMBOL": "FPILLS",
-  "MAX_SUPPLY": 550,
-  "WEI_COST": 15000000000000000000,
-  "DISPLAY_COST": 15,
+  "NFT_NAME": "Simple Fellas - by Fantom Pills",
+  "SYMBOL": "SFELLAS",
+  "MAX_SUPPLY": 420,
+  "WEI_COST": 69000000000000000000,
+  "DISPLAY_COST": 69,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opera House",
-  "MARKETPLACE_LINK": "https://operahouse.online/",
+  "MARKETPLACE_LINK": "https://operahouse.online/profile",
   "SHOW_BACKGROUND": true
 }
