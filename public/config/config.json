@@ -1,18 +1,19 @@
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0x9fc4e390395177d6d5f1ed013c24f260df301cff",
+  "SCAN_LINK": "https://ftmscan.com/address/0x9fc4e390395177d6d5f1ed013c24f260df301cff",
+  "SETUP_LINK": "https://docs.fantom.foundation/tutorials/set-up-metamask",
   "NETWORK": {
-    "NAME": "Polygon",
-    "SYMBOL": "Matic",
-    "ID": 137
+    "NAME": "Fantom Opera",
+    "SYMBOL": "FTM",
+    "ID": 250 
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
+  "NFT_NAME": "Simple Fellas - by Fantom Pills",
+  "SYMBOL": "SFELLAS",
+  "MAX_SUPPLY": 420,
+  "WEI_COST": 69000000000000000000,
+  "DISPLAY_COST": 69,
   "GAS_LIMIT": 285000,
-  "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE": "Opera House",
+  "MARKETPLACE_LINK": "https://operahouse.online/profile",
   "SHOW_BACKGROUND": true
 }
