@@ -237,7 +237,7 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-                {data.totalSupply} of {CONFIG.MAX_SUPPLY} minted.
+                {data.totalSupply}  minted.
             </s.TextTitle>
             <s.TextDescription
               style={{
@@ -262,7 +262,7 @@ function App() {
               </StyledLink>
             </s.TextDescription>
             <s.SpacerSmall />
-            {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
+            {Number(data.totalSupply) >= 1 /*CONFIG.MAX_SUPPLY */? (
               <>
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
