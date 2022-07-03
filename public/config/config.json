@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0x001c46908d9d42f5677e89a01fa77bfa3792580b",
+  "SCAN_LINK": "https://etherscan.io/address/0x001c46908d9d42f5677e89a01fa77bfa3792580b",
   "NETWORK": {
-    "NAME": "Polygon",
-    "SYMBOL": "Matic",
-    "ID": 137
+    "NAME": "Etherium",
+    "SYMBOL": "ETH",
+    "ID": 1
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
+  "NFT_NAME": "PC: Minimal Effort",
+  "SYMBOL": "PCME",
+  "MAX_SUPPLY": 5555,
   "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
+  "DISPLAY_COST": 0.00187,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/pc-minimal-effort",
   "SHOW_BACKGROUND": true
 }
