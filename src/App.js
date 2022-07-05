@@ -4,6 +4,7 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import BN from "bn.js";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -121,10 +122,11 @@ function App() {
   });
 
   const claimNFTs = () => {
-    let cost = CONFIG.WEI_COST;
-    let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit * mintAmount);
+    let cost = new BN(CONFIG.WEI_COST, 10);
+    let gasLimit = new BN(CONFIG.GAS_LIMIT);
+    let bNMintAmount = new BN(mintAmount);
+    let totalCostWei = cost.mul(bNMintAmount).toString(10);
+    let totalGasLimit = gasLimit.mul(bNMintAmount).toString(10);
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
