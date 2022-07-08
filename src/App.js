@@ -102,21 +102,21 @@ function App() {
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
-    CONTRACT_ADDRESS: "",
-    SCAN_LINK: "",
+    CONTRACT_ADDRESS: "0x269f26c44aAD70Cf9c53b5105823743FAF467c07",
+    SCAN_LINK: "https://polygonscan.com/address/0x269f26c44aAD70Cf9c53b5105823743FAF467c07",
     NETWORK: {
-      NAME: "",
-      SYMBOL: "",
-      ID: 0,
+      NAME: "Polygon",
+      SYMBOL: "Matic",
+      ID: 137,
     },
-    NFT_NAME: "",
-    SYMBOL: "",
-    MAX_SUPPLY: 1,
-    WEI_COST: 0,
-    DISPLAY_COST: 0,
-    GAS_LIMIT: 0,
-    MARKETPLACE: "",
-    MARKETPLACE_LINK: "",
+    NFT_NAME: "Falcon Heavy Mars",
+    SYMBOL: "FHM",
+    MAX_SUPPLY: 10000,
+    WEI_COST: 7145820000000000,
+    DISPLAY_COST: 50,
+    GAS_LIMIT: 285000,
+    MARKETPLACE: "Opensea",
+    MARKETPLACE_LINK: "https://opensea.io/collection/falcon-heavy-mars",
     SHOW_BACKGROUND: false,
   });
 

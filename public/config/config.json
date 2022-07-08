@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0x269f26c44aAD70Cf9c53b5105823743FAF467c07",
+  "SCAN_LINK": "https://polygonscan.com/address/0x269f26c44aAD70Cf9c53b5105823743FAF467c07",
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
     "ID": 137
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
+  "NFT_NAME": "Falcon Heavy Mars",
+  "SYMBOL": "FHM",
+  "MAX_SUPPLY": 10000,
+  "WEI_COST": 7145820000000000,
+  "DISPLAY_COST": 50.0,
   "GAS_LIMIT": 285000,
-  "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE": "Opensea",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/falcon-heavy-mars",
   "SHOW_BACKGROUND": true
 }
