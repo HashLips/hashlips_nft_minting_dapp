@@ -4,6 +4,7 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
+import UDomain from "./redux/blockchain/uauth";
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -130,7 +131,7 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mint(mintAmount)
+      .mint(blockchain.account, mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -194,6 +195,8 @@ function App() {
   }, [blockchain.account]);
 
   return (
+    <div style={{backgroundColor: "var(--primary)" }}>
+    <UDomain/>
     <s.Screen>
       <s.Container
         flex={1}
@@ -404,6 +407,7 @@ function App() {
         </s.Container>
       </s.Container>
     </s.Screen>
+    </div>
   );
 }
 
