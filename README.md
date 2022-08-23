@@ -1,5 +1,13 @@
 # Welcome to HashLips 👄
 
+### Project Name - Hashlips NFT
+### PR link to a public repo - https://github.com/HashLips/hashlips_nft_minting_dapp/pull/143
+###  Recorded video demo of the integration - https://drive.google.com/file/d/16MGG_G69J22BFaRC0I3IozkgifyAkyY_/view?usp=sharing
+### Live URL with working integration - https://hashlips-nft-minting-dapp-qmicon.vercel.app/
+###  Person of contact in case there are any questions - Bash (Email - tanil1361@gmail.com )
+###  Discord ID - Bash#8949
+###  UnstoppableDomain registered account email address - tanil1361@gmail.com
+
 ![](https://github.com/HashLips/hashlips_nft_minting_dapp/blob/main/logo.png)
 
 All the code in these repos was created and explained by HashLips on the main YouTube channel.
