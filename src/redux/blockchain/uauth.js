@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const uauth = new UAuth({
     clientID: "9733b59c-e741-4cfb-9165-d0942ebe1f98",
-    redirectUri: "https://hashlips-nft-minting-dapp-qmicon.vercel.app/",
+    redirectUri: "https://hashlips-nft-minting-dapp-qmicon.vercel.app",
     scope: "openid wallet"
   })
 const StyledButton = styled.button`
