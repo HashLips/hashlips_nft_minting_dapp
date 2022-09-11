@@ -5,6 +5,31 @@ import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 
+//Merkle Setup
+const { MerkleTree } = require('merkletreejs')
+const SHA256 = require('crypto-js/sha256')
+const keccak256 = require('keccak256')
+
+const addresses = ['0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B', '0xE8339cfBd960F79182d740a1a1d913ce5796A508', '0xb257998Af19276060Ef1dB9Fcc0A3F6AE7BBc9ba']
+const leaves = addresses.map(x => keccak256(x))
+
+const tree = new MerkleTree(leaves, keccak256, {sortPairs:true})
+const buf2hex = x => '0x' + x.toString('hex')
+
+console.log(buf2hex(tree.getRoot()))
+const proof = tree.getProof(leaves[0])
+console.log(proof)
+//0xa2ad50d2cbcb1b488d38ab7401f3e3bfc97025981fc47c670dac84e27813f36c
+//const leaf = keccak256('0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B')
+//const proof = tree.getProof(leaf)
+//console.log('IS IT ALLOWED? '+proof)
+//console.log(buf2hex(tree.verify(proof, leaf, root)))
+
+//const root = tree.getRoot().toString('hex')
+//const leaf = SHA256('0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B')
+//const proof = tree.getProof(leaf)
+//console.log(tree.verify(proof, leaf, root)) // true
+
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
@@ -129,8 +154,9 @@ function App() {
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
+    //This Contract can only be minted via WhiteList.
     blockchain.smartContract.methods
-      .mint(mintAmount)
+      .whitelistMint(mintAmount,proof,leaf)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,

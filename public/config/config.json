@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0xb264D5B8ef10bD30bcb4314A625E7a566B58090E",
+  "SCAN_LINK": "https://https://mumbai.polygonscan.com/address/0xb264d5b8ef10bd30bcb4314a625e7a566b58090e",
   "NETWORK": {
-    "NAME": "Polygon",
+    "NAME": "Polygon Testnet",
     "SYMBOL": "Matic",
-    "ID": 137
+    "ID": 80001
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
+  "NFT_NAME": "REIGROUP NFT",
+  "SYMBOL": "REIGNFT",
+  "MAX_SUPPLY": 500,
+  "WEI_COST": 60000000000000000,
+  "DISPLAY_COST": 0.06,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/reigroup-nft",
   "SHOW_BACKGROUND": true
 }
