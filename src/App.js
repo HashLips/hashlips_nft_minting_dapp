@@ -99,16 +99,12 @@ export const StyledLogo = styled.img`
 `;
 
 export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
-  width: 200px;
+  width: 100%;
   @media (min-width: 900px) {
-    width: 250px;
+    width: 100%;
   }
   @media (min-width: 1000px) {
-    width: 300px;
+    width: 100%;
   }
   transition: width 0.5s;
 `;
@@ -233,7 +229,7 @@ function App() {
     <s.Screen>
       <s.Container
         flex={1}
-        ai={"center"}
+        ai={"left"}
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
@@ -241,7 +237,23 @@ function App() {
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
+            <s.TextTitle style={{
+                textAlign: "left",
+                fontSize: 90,
+                lineHeight:"70px",
+                fontWeight: "bold",
+                color: "var(--secondary)",
+              }}>Real Estate investment
+of the Future</s.TextTitle>
+<s.TextSubTitle style={{
+                textAlign: "left",
+                fontSize: 50,
+                lineHeight:"50px",
+                fontWeight: "300",
+                color: "var(--primary-text)",
+              }}>Be part of the new movement
+mint your membership pas now.</s.TextSubTitle>
+            <StyledImg alt={"example"} src={"/config/images/nft.png"} />
           </s.Container>
           <s.SpacerLarge />
           <s.Container
@@ -249,10 +261,10 @@ function App() {
             jc={"center"}
             ai={"center"}
             style={{
-              backgroundColor: "var(--accent)",
+              backgroundColor: "var(--primary-text)",
               padding: 24,
               borderRadius: 24,
-              border: "4px dashed var(--secondary)",
+              border: "4px solid var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
           >
@@ -261,7 +273,7 @@ function App() {
                 textAlign: "center",
                 fontSize: 50,
                 fontWeight: "bold",
-                color: "var(--accent-text)",
+                color: "var(--primary)",
               }}
             >
               {data.totalSupply} / {CONFIG.MAX_SUPPLY}
@@ -269,7 +281,7 @@ function App() {
             <s.TextDescription
               style={{
                 textAlign: "center",
-                color: "var(--primary-text)",
+                color: "var(--primary)",
               }}
             >
               <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
@@ -280,12 +292,12 @@ function App() {
             {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: "center", color: "var(--primary)" }}
                 >
                   The sale has ended.
                 </s.TextTitle>
                 <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: "center", color: "var(--primary)" }}
                 >
                   You can still find {CONFIG.NFT_NAME} on
                 </s.TextDescription>
@@ -297,14 +309,14 @@ function App() {
             ) : (
               <>
                 <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: "center", color: "var(--primary)" }}
                 >
                   1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
                   {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: "center", color: "var(--primary)" }}
                 >
                   Excluding gas fees.
                 </s.TextDescription>
@@ -315,7 +327,7 @@ function App() {
                     <s.TextDescription
                       style={{
                         textAlign: "center",
-                        color: "var(--accent-text)",
+                        color: "var(--primary)",
                       }}
                     >
                       Connect to the {CONFIG.NETWORK.NAME} network
@@ -336,7 +348,7 @@ function App() {
                         <s.TextDescription
                           style={{
                             textAlign: "center",
-                            color: "var(--accent-text)",
+                            color: "var(--primary)",
                           }}
                         >
                           {blockchain.errorMsg}
@@ -349,7 +361,7 @@ function App() {
                     <s.TextDescription
                       style={{
                         textAlign: "center",
-                        color: "var(--accent-text)",
+                        color: "var(--primary)",
                       }}
                     >
                       {feedback}
@@ -370,7 +382,7 @@ function App() {
                       <s.TextDescription
                         style={{
                           textAlign: "center",
-                          color: "var(--accent-text)",
+                          color: "var(--primary)",
                         }}
                       >
                         {mintAmount}
@@ -406,13 +418,6 @@ function App() {
             <s.SpacerMedium />
           </s.Container>
           <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container>
         </ResponsiveWrapper>
         <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
