@@ -17,8 +17,7 @@ const tree = new MerkleTree(leaves, keccak256, {sortPairs:true})
 const buf2hex = x => '0x' + x.toString('hex')
 
 console.log(buf2hex(tree.getRoot()))
-const proof = tree.getProof(leaves[0])
-console.log(proof)
+
 //0xa2ad50d2cbcb1b488d38ab7401f3e3bfc97025981fc47c670dac84e27813f36c
 //const leaf = keccak256('0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B')
 //const proof = tree.getProof(leaf)
@@ -154,9 +153,15 @@ function App() {
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
+    //Check Merkle
+    const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+    //.map(x=>buf2hex(x.data))
+    //const cleanproof = proof.replace(" ","")
+    console.log(test)
+
     //This Contract can only be minted via WhiteList.
     blockchain.smartContract.methods
-      .whitelistMint(mintAmount,proof,leaf)
+      .whitelistMint(mintAmount,test)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -196,6 +201,11 @@ function App() {
 
   const getData = () => {
     if (blockchain.account !== "" && blockchain.smartContract !== null) {
+      console.log("Initial Tree: "+tree)
+      const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+      //.map(x=>buf2hex(x.data))
+      //const cleanproof = proof.replace(" ","")
+      console.log(test)
       dispatch(fetchData(blockchain.account));
     }
   };
