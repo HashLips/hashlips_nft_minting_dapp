@@ -252,7 +252,7 @@ of the Future</s.TextTitle>
                 fontWeight: "300",
                 color: "var(--primary-text)",
               }}>Be part of the new movement
-mint your membership pas now.</s.TextSubTitle>
+mint your membership pass now.</s.TextSubTitle>
             <StyledImg alt={"example"} src={"/config/images/nft.png"} />
           </s.Container>
           <s.SpacerLarge />
@@ -268,6 +268,12 @@ mint your membership pas now.</s.TextSubTitle>
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
           >
+            <s.TextTitle style={{
+                textAlign: "center",
+                fontSize: 50,
+                fontWeight: "300",
+                color: "var(--primary)",
+              }}>Gold Membership Whitelist Event</s.TextTitle>
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -416,15 +422,11 @@ mint your membership pas now.</s.TextSubTitle>
               </>
             )}
             <s.SpacerMedium />
-          </s.Container>
-          <s.SpacerLarge />
-        </ResponsiveWrapper>
-        <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+            <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
           <s.TextDescription
             style={{
               textAlign: "center",
-              color: "var(--primary-text)",
+              color: "var(--primary)",
             }}
           >
             Please make sure you are connected to the right network (
@@ -435,7 +437,7 @@ mint your membership pas now.</s.TextSubTitle>
           <s.TextDescription
             style={{
               textAlign: "center",
-              color: "var(--primary-text)",
+              color: "var(--primary)",
             }}
           >
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
@@ -443,6 +445,10 @@ mint your membership pas now.</s.TextSubTitle>
             gas limit.
           </s.TextDescription>
         </s.Container>
+          </s.Container>
+          <s.SpacerLarge />
+        </ResponsiveWrapper>
+        <s.SpacerMedium />
       </s.Container>
     </s.Screen>
   );
