@@ -386,7 +386,7 @@ function App() {
               color: "var(--primary-text)",
             }}
           >
-            Pplease make sure you are connected to the right network (
+            PPlease make sure you are connected to the right network (
             {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
             Once you make the purchase, you cannot undo this action.
           </s.TextDescription>
