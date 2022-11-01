@@ -124,3 +124,4 @@ Now you can host the contents of the build folder on a server.
 
 That's it! you're done.
 # myuglminter
+# edensuglminter
