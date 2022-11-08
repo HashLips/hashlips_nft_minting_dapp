@@ -270,7 +270,7 @@ function App() {
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  Excluding gas fees.
+                  Please make sure to use a wallet with less than 20 cats!.
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
