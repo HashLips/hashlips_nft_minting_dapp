@@ -270,7 +270,7 @@ function App() {
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  Please make sure to use a wallet with less than 20 cats!.
+                  We allow a maximum of 20 cats per wallet!.
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
