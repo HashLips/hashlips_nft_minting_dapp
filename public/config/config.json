@@ -6,13 +6,13 @@
     "SYMBOL": "ETH",
     "ID": 1
   },
-  "NFT_NAME": "Lines and Dots",
-  "SYMBOL": "LAD",
-  "MAX_SUPPLY": 1000,
+  "NFT_NAME": "UNTAMED GIRAFFE LODGE",
+  "SYMBOL": "GIRAFFE",
+  "MAX_SUPPLY": 10000,
   "WEI_COST": 75000000000000000,
   "DISPLAY_COST": 0.075,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/untamed-giraffe-lodge",
   "SHOW_BACKGROUND": true
 }
