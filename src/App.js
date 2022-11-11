@@ -304,7 +304,7 @@ function App() {
                 >
                   {/* 1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "} */} {/* <--to change back to a real price */} 
                   Each {CONFIG.SYMBOL} is "FREE"!
-                  {CONFIG.NETWORK.SYMBOL}.
+                  {/*{CONFIG.NETWORK.SYMBOL}.*/} {/* <--to add "eth" */}
                 </s.TextTitle>
                 
                 {blockchain.account === "" ||
