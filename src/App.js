@@ -258,9 +258,9 @@ function App() {
             }}
           >
             -We commit to 0% creator fees
-            <s.SpacerXSSmall />
+            <s.SpacerXSmall />
             -Buyers receive all profits
-            <s.SpacerXSSmall />
+            <s.SpacerXSmall />
             -fees such as gas apply to purchase
           </s.TextDescription>
           
