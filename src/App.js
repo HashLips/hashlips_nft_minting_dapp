@@ -303,7 +303,8 @@ function App() {
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
                   {/* 1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "} */} {/* <--to change back to a real price */} 
-                  Each {CONFIG.SYMBOL} is "FREE"!
+                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                  {CONFIG.NETWORK.SYMBOL}.
                   {/*{CONFIG.NETWORK.SYMBOL}.*/} {/* <--to add "eth" */}
                 </s.TextTitle>
                 
