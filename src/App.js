@@ -257,12 +257,13 @@ function App() {
               color: "var(--primary)",
             }}
           >
-            smart contract link:
+            -We commit to 0% creator fees
+            <s.SpacerXSSmall />
+            -Buyers receive all profits
+            <s.SpacerXSSmall />
+            -fees such as gas apply to purchase
           </s.TextDescription>
-          <StyledLink flex={1} jc={"center"} ai={"center"}
-          target={"_blank"} href={CONFIG.SCAN_LINK}>
-                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-              </StyledLink>
+          
           </s.Container>
           
             {/* the NFT minted counter - start */}
