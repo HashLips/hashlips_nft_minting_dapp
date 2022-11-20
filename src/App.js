@@ -250,7 +250,20 @@ function App() {
           </s.Container>
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
        
-
+        <s.Container>
+        <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary)",
+            }}
+          >
+            smart contract link:
+          </s.TextDescription>
+          <StyledLink flex={1} jc={"center"} ai={"center"}
+          target={"_blank"} href={CONFIG.SCAN_LINK}>
+                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
+              </StyledLink>
+          </s.Container>
           
             {/* the NFT minted counter - start */}
             <s.TextTitle
