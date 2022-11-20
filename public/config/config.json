@@ -11,7 +11,7 @@
   "MAX_SUPPLY": 9998,
   "WEI_COST": 410000000000000,
   "DISPLAY_COST": 0.00041,
-  "GAS_LIMIT": 285000,
+  "GAS_LIMIT": 2850000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/untamed-giraffe-lodge",
   "SHOW_BACKGROUND": true
