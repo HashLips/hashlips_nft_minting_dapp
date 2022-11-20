@@ -110,7 +110,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Click MINT NOW to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -302,8 +302,9 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                  {CONFIG.NETWORK.SYMBOL}.
+                  {/* 1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "} */} {/* <--to change back to a real price */} 
+                  Each {CONFIG.SYMBOL} is "FREE"!
+                  {/*{CONFIG.NETWORK.SYMBOL}.*/} {/* <--to add "eth" */}
                 </s.TextTitle>
                 
                 {blockchain.account === "" ||
@@ -411,7 +412,7 @@ function App() {
                       >
 
 
-                        {claimingNft ? "BUSY" : "BUY"}
+                        {claimingNft ? "BUSY" : "MINT NOW"}
                       </StyledButton>
                     </s.Container>
                   </>
