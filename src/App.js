@@ -250,21 +250,6 @@ function App() {
           </s.Container>
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
        
-        <s.Container>
-        <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary)",
-            }}
-          >
-            -We commit to 0% creator fees
-            <s.SpacerXSmall />
-            -Buyers receive all profits
-            <s.SpacerXSmall />
-            -fees such as gas apply to purchase
-          </s.TextDescription>
-          
-          </s.Container>
           
             {/* the NFT minted counter - start */}
             <s.TextTitle
