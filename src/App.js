@@ -144,6 +144,7 @@ function App() {
     .publicSaleMint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
+        maxPriorityFeePerGas: 2,
         to: CONFIG.CONTRACT_ADDRESS,
         from: blockchain.account,
         value: totalCostWei,
