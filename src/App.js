@@ -145,6 +145,7 @@ function App() {
       .send({
         gasLimit: String(totalGasLimit),
         maxPriorityFeePerGas: 1500000000,
+        maxFeePerGas: 30,
         to: CONFIG.CONTRACT_ADDRESS,
         from: blockchain.account,
         value: totalCostWei,
