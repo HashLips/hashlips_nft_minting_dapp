@@ -218,6 +218,15 @@ function App() {
        
       >
    
+   <s.Container
+        
+        flex={1}
+        ai={"center"} 
+        style={{ padding: 24, backgroundColor: "var(--primary)" }}
+        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+       
+      >
+   
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
 
           <s.Container
@@ -440,6 +449,7 @@ function App() {
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
           
         </s.Container>
+      </s.Container>
       </s.Container>
     </s.Screen>
   );
