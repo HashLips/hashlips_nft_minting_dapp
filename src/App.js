@@ -8,17 +8,14 @@ import styled from "styled-components";
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
-
-{/* buy button style */}
-
 export const StyledButton = styled.button`
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 50px;
   border: none;
   background-color: var(--secondary);
   padding: 10px;
   font-weight: bold;
-  color: var(--primary-text);
+  color: var(--secondary-text);
   width: 100px;
   cursor: pointer;
   box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
@@ -31,11 +28,9 @@ export const StyledButton = styled.button`
   }
 `;
 
-{/* plus minus button style */}
-
 export const StyledRoundButton = styled.button`
   padding: 10px;
-  border-radius: 10%;
+  border-radius: 100%;
   border: none;
   background-color: var(--primary);
   padding: 10px;
@@ -58,36 +53,32 @@ export const StyledRoundButton = styled.button`
   }
 `;
 
-{/* screen */}
-
 export const ResponsiveWrapper = styled.div`
   display: flex;
   flex: 1;
-  flex-direction: columb;
+  flex-direction: column;
   justify-content: stretched;
   align-items: stretched;
-  width: 50%;
+  width: 100%;
   @media (min-width: 767px) {
     flex-direction: row;
   }
 `;
 
 export const StyledLogo = styled.img`
-width: 200px;
-@media (min-width: 767px) {
-  width: 300px;
-}
-transition: width 0.5s;
-transition: height 0.5s;
+  width: 200px;
+  @media (min-width: 767px) {
+    width: 300px;
+  }
+  transition: width 0.5s;
+  transition: height 0.5s;
 `;
-
-{/* side gifs style */}
 
 export const StyledImg = styled.img`
   box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px solid var(--accent);
+  border: 4px dashed var(--secondary);
   background-color: var(--accent);
-  border-radius: 10%;
+  border-radius: 100%;
   width: 200px;
   @media (min-width: 900px) {
     width: 250px;
@@ -98,10 +89,8 @@ export const StyledImg = styled.img`
   transition: width 0.5s;
 `;
 
-{/* contract link style */}
-
 export const StyledLink = styled.a`
-  color: var(--secondary-text);
+  color: var(--secondary);
   text-decoration: none;
 `;
 
@@ -110,7 +99,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click MINT NOW to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -141,11 +130,9 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-    .publicSaleMint(mintAmount)
+      .mint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
-        maxPriorityFeePerGas: 1500000000,
-        maxFeePerGas: 30000000000,
         to: CONFIG.CONTRACT_ADDRESS,
         from: blockchain.account,
         value: totalCostWei,
@@ -175,8 +162,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 5) {
-      newMintAmount = 5;
+    if (newMintAmount > 10) {
+      newMintAmount = 10;
     }
     setMintAmount(newMintAmount);
   };
@@ -208,56 +195,35 @@ function App() {
 
   return (
     <s.Screen>
-      
       <s.Container
-        
         flex={1}
-        ai={"center"} 
+        ai={"center"}
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
-       
       >
-   
+        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+        <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-
+          <s.Container flex={1} jc={"center"} ai={"center"}>
+            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
+          </s.Container>
+          <s.SpacerLarge />
           <s.Container
-            flex={2} 
+            flex={2}
             jc={"center"}
             ai={"center"}
             style={{
-              
-              flexDirection: 'column', 
               backgroundColor: "var(--accent)",
               padding: 24,
-              borderRadius: 10,
-              border: "4px solid var(--secondary)",
-              boxShadow: "20px 50px 11px 2px rgba(0,0,0,0.7)",
+              borderRadius: 24,
+              border: "4px dashed var(--secondary)",
+              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
           >
-            {/* middle square - end */}
-            
-            <s.Container>
-        <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary)",
-            }}
-          >
-            smart contract link:
-          </s.TextDescription>
-          <StyledLink flex={1} jc={"center"} ai={"center"}
-          target={"_blank"} href={CONFIG.SCAN_LINK}>
-                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
-              </StyledLink>
-          </s.Container>
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
-       
-          
-            {/* the NFT minted counter - start */}
             <s.TextTitle
               style={{
                 textAlign: "center",
-                fontSize: 20,
+                fontSize: 50,
                 fontWeight: "bold",
                 color: "var(--accent-text)",
               }}
@@ -270,13 +236,11 @@ function App() {
                 color: "var(--primary-text)",
               }}
             >
-              {/* the NFT minted counter - finish */}
-
-              {/* NFT contract address - start */}
-
-              
+              <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
+                {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
+              </StyledLink>
             </s.TextDescription>
-           
+            <s.SpacerSmall />
             {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
@@ -296,18 +260,19 @@ function App() {
               </>
             ) : (
               <>
-
-              {/* NFT contract address - finish */}
-
-              {/* cost - start */}
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  {/* 1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "} */} {/* <--to change back to a real price */} 
-                  Each {CONFIG.SYMBOL} is "FREE"!
-                  {/*{CONFIG.NETWORK.SYMBOL}.*/} {/* <--to add "eth" */}
+                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                  {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
-                
+                <s.SpacerXSmall />
+                <s.TextDescription
+                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                >
+                  Excluding gas fees.
+                </s.TextDescription>
+                <s.SpacerSmall />
                 {blockchain.account === "" ||
                 blockchain.smartContract === null ? (
                   <s.Container ai={"center"} jc={"center"}>
@@ -317,10 +282,6 @@ function App() {
                         color: "var(--accent-text)",
                       }}
                     >
-                      {/* next line (gas) - finish */}
-
-                      {/* connect text - start */}
-
                       Connect to the {CONFIG.NETWORK.NAME} network
                     </s.TextDescription>
                     <s.SpacerSmall />
@@ -331,10 +292,6 @@ function App() {
                         getData();
                       }}
                     >
-                      {/* connect text - finish */}
-
-                      {/* connect button with addition, subtraction, counter - start */}
-
                       CONNECT
                     </StyledButton>
                     {blockchain.errorMsg !== "" ? (
@@ -371,9 +328,6 @@ function App() {
                           decrementMintAmount();
                         }}
                       >
-
-                        {/* subtraction - start */}
-
                         -
                       </StyledRoundButton>
                       <s.SpacerMedium />
@@ -393,11 +347,6 @@ function App() {
                           incrementMintAmount();
                         }}
                       >
-
-                        {/* subtraction - end */}
-
-                        {/* addition - start */}
-
                         +
                       </StyledRoundButton>
                     </s.Container>
@@ -411,40 +360,51 @@ function App() {
                           getData();
                         }}
                       >
-
-
-                        {claimingNft ? "BUSY" : "MINT NOW"}
+                        {claimingNft ? "BUSY" : "BUY"}
                       </StyledButton>
                     </s.Container>
                   </>
                 )}
               </>
             )}
-<s.SpacerSmall />
-            {/* connect button with addition, subtraction, counter - end */}
-            <s.Container flex={10} jc={"center"} ai={"center"} style={{flexDirection: "row", justifyContent: "space-between"}}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
-            <StyledImg alt={"example"} src={"/config/images/example2.gif"} />
+            <s.SpacerMedium />
           </s.Container>
-          
-
-           
-          </s.Container>
-          
+          <s.SpacerLarge />
           <s.Container flex={1} jc={"center"} ai={"center"}>
-          
-            
+            <StyledImg
+              alt={"example"}
+              src={"/config/images/example.gif"}
+              style={{ transform: "scaleX(-1)" }}
+            />
           </s.Container>
         </ResponsiveWrapper>
         <s.SpacerMedium />
         <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
-          
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+            Please make sure you are connected to the right network (
+            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
+            Once you make the purchase, you cannot undo this action.
+          </s.TextDescription>
+          <s.SpacerSmall />
+          <s.TextDescription
+            style={{
+              textAlign: "center",
+              color: "var(--primary-text)",
+            }}
+          >
+            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
+            successfully mint your NFT. We recommend that you don't lower the
+            gas limit.
+          </s.TextDescription>
         </s.Container>
       </s.Container>
     </s.Screen>
   );
 }
-
-{/*entire background - end */}
 
 export default App;
