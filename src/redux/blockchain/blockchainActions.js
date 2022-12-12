@@ -1,5 +1,5 @@
 // constants
-import Web3EthContract from "web3-eth-contract";
+import Web3EthContract, { Contract } from "web3-eth-contract";
 import Web3 from "web3";
 // log
 import { fetchData } from "../data/dataActions";
@@ -30,6 +30,7 @@ const updateAccountRequest = (payload) => {
     payload: payload,
   };
 };
+
 
 export const connect = () => {
   return async (dispatch) => {

@@ -1,15 +1,15 @@
 {
-  "CONTRACT_ADDRESS": "0x7D937c17e6D647866474e657dfED444120Ab909D",
-  "SCAN_LINK": "https://rinkeby.etherscan.io/token/0x7d937c17e6d647866474e657dfed444120ab909d",
+  "CONTRACT_ADDRESS": "0x9Fb98793c10994EAFEe0ba7dd80c8997C5c19F05",
+  "SCAN_LINK": "https://etherscan.io/token/0x9fb98793c10994eafee0ba7dd80c8997c5c19f05",
   "NETWORK": {
-    "NAME": "rinkeby",
+    "NAME": "mainnet",
     "SYMBOL": "ETH",
-    "ID": 4
+    "ID": 1
   },
-  "NFT_NAME": "destrosinistro",
-  "SYMBOL": "ABSDA",
-  "MAX_SUPPLY": 3500,
-  "WEI_COST": 75000000000000000,
+  "NFT_NAME": "Riot Generation",
+  "SYMBOL": "RIOT",
+  "MAX_SUPPLY": 2222,
+  "WEI_COST": 350000000000000,
   "DISPLAY_COST": 0.000,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
