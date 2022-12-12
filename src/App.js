@@ -5,18 +5,19 @@ import { fetchData } from "./redux/data/dataActions";
 import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 
+
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
 
 export const StyledButton = styled.button`
   padding: 10px;
   border-radius: 50px;
-  border: none;
+  border: 3px solid;
   background-color: var(--secondary);
   padding: 10px;
   font-weight: bold;
   color: var(--secondary-text);
-  width: 100px;
+  width: 200px;
   cursor: pointer;
   box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
   -webkit-box-shadow: 0px 6px 0px -2px rgba(250, 250, 250, 0.3);
@@ -31,7 +32,7 @@ export const StyledButton = styled.button`
 export const StyledRoundButton = styled.button`
   padding: 10px;
   border-radius: 100%;
-  border: none;
+  border: solid;
   background-color: var(--primary);
   padding: 10px;
   font-weight: bold;
@@ -56,6 +57,8 @@ export const StyledRoundButton = styled.button`
 export const ResponsiveWrapper = styled.div`
   display: flex;
   flex: 1;
+  background-color: var(--accent-text);
+
   flex-direction: column;
   justify-content: stretched;
   align-items: stretched;
@@ -67,8 +70,9 @@ export const ResponsiveWrapper = styled.div`
 
 export const StyledLogo = styled.img`
   width: 200px;
+  
   @media (min-width: 767px) {
-    width: 300px;
+    width: 350px;
   }
   transition: width 0.5s;
   transition: height 0.5s;
@@ -76,9 +80,9 @@ export const StyledLogo = styled.img`
 
 export const StyledImg = styled.img`
   box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
+  border: 3px solid var(--secondary);
+  background-color: var( --secondary);
+
   width: 200px;
   @media (min-width: 900px) {
     width: 250px;
@@ -107,7 +111,7 @@ function App() {
     NETWORK: {
       NAME: "",
       SYMBOL: "",
-      ID: 0,
+      ID: 1,
     },
     NFT_NAME: "",
     SYMBOL: "",
@@ -120,18 +124,25 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
+  
+
+  
   const claimNFTs = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
-    let totalCostWei = String(cost * mintAmount);
-    let totalGasLimit = String(gasLimit * mintAmount);
+    let totalCostWei = String(cost );
+    let totalGasLimit = String(gasLimit );
     console.log("Cost: ", totalCostWei);
     console.log("Gas limit: ", totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
+
+    
+    
     blockchain.smartContract.methods
       .mint(mintAmount)
       .send({
+        
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
         from: blockchain.account,
@@ -145,13 +156,14 @@ function App() {
       .then((receipt) => {
         console.log(receipt);
         setFeedback(
-          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+          `WOW, the ${CONFIG.NFT_NAME} is yours! Go visit Opensea.io to view it.`
         );
-        setClaimingNft(false);
+        
         dispatch(fetchData(blockchain.account));
       });
   };
 
+  
   const decrementMintAmount = () => {
     let newMintAmount = mintAmount - 1;
     if (newMintAmount < 1) {
@@ -162,8 +174,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
+    if (newMintAmount > 3) {
+      newMintAmount = 3;
     }
     setMintAmount(newMintAmount);
   };
@@ -198,14 +210,14 @@ function App() {
       <s.Container
         flex={1}
         ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+        style={{ padding: 24, backgroundColor: "var(--accent-text)" }}
+      
       >
         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
         <s.SpacerSmall />
-        <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
+        <ResponsiveWrapper flex={1} style={{ padding: 10 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
+            <StyledImg alt={"example"} src={"/config/images/RiotGif.gif"} />
           </s.Container>
           <s.SpacerLarge />
           <s.Container
@@ -213,10 +225,10 @@ function App() {
             jc={"center"}
             ai={"center"}
             style={{
-              backgroundColor: "var(--accent)",
+              backgroundColor: "var( --accent)",
               padding: 24,
               borderRadius: 24,
-              border: "4px dashed var(--secondary)",
+              border: "3px solid var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
           >
@@ -287,9 +299,11 @@ function App() {
                     <s.SpacerSmall />
                     <StyledButton
                       onClick={(e) => {
+                      
                         e.preventDefault();
                         dispatch(connect());
                         getData();
+                        
                       }}
                     >
                       CONNECT
@@ -360,7 +374,9 @@ function App() {
                           getData();
                         }}
                       >
+                       
                         {claimingNft ? "BUSY" : "BUY"}
+                        
                       </StyledButton>
                     </s.Container>
                   </>
@@ -373,8 +389,8 @@ function App() {
           <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg
               alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
+              src={"/config/images/RiotGif.gif"}
+              
             />
           </s.Container>
         </ResponsiveWrapper>
@@ -388,7 +404,7 @@ function App() {
           >
             Please make sure you are connected to the right network (
             {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
+            You can't purchase the Revolution, but you may be part of it.
           </s.TextDescription>
           <s.SpacerSmall />
           <s.TextDescription
@@ -397,9 +413,7 @@ function App() {
               color: "var(--primary-text)",
             }}
           >
-            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
+           
           </s.TextDescription>
         </s.Container>
       </s.Container>

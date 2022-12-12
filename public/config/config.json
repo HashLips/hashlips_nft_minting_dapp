@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0x9Fb98793c10994EAFEe0ba7dd80c8997C5c19F05",
+  "SCAN_LINK": "https://etherscan.io/token/0x9fb98793c10994eafee0ba7dd80c8997c5c19f05",
   "NETWORK": {
-    "NAME": "Polygon",
-    "SYMBOL": "Matic",
-    "ID": 137
+    "NAME": "mainnet",
+    "SYMBOL": "ETH",
+    "ID": 1
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
+  "NFT_NAME": "Riot Generation",
+  "SYMBOL": "RIOT",
+  "MAX_SUPPLY": 2222,
+  "WEI_COST": 350000000000000,
+  "DISPLAY_COST": 0.000,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/destrosinistro",
   "SHOW_BACKGROUND": true
 }
