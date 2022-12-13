@@ -219,6 +219,7 @@ function App() {
             }}
           ><s.Container flex={1} jc={"center"} ai={"center"}>
           <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+          <s.SpacerXSmall />
           <StyledImg
             alt={"example"}
             src={"/config/images/example.gif"}
