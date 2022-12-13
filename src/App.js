@@ -220,7 +220,7 @@ function App() {
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
           ><s.Container flex={1} jc={"center"} ai={"center"}>
-          <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
           <s.SpacerXSmall />
           <StyledImg
             alt={"example"}
