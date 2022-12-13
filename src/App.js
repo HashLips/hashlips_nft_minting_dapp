@@ -217,7 +217,13 @@ function App() {
               border: "4px solid var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
-          >
+          ><s.Container flex={1} jc={"center"} ai={"center"}>
+          <StyledImg
+            alt={"example"}
+            src={"/config/images/example.gif"}
+            style={{ transform: "scaleX(-1)" }}
+          />
+        </s.Container>
             <s.TextTitle
               style={{
                 textAlign: "center",
@@ -360,9 +366,7 @@ function App() {
                       >
                         {claimingNft ? "BUSY" : "BUY"}
                       </StyledButton>
-                      <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
-          </s.Container>
+                      
                     </s.Container>
                   </>
                 )}
@@ -371,13 +375,7 @@ function App() {
             <s.SpacerMedium />
           </s.Container>
           <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container>
+          
         </ResponsiveWrapper>
         
       </s.Container>
