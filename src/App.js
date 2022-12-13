@@ -271,7 +271,7 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  Each {CONFIG.SYMBOL} if "FREE!" .
+                  Each {CONFIG.SYMBOL} is  "FREE!" .
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
