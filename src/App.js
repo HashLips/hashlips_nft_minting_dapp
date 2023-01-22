@@ -236,7 +236,7 @@ function App() {
                 color: "var(--accent-text)",
               }}
             >
-              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+              200/200
             </s.TextTitle>
             <s.TextDescription
               style={{
@@ -299,7 +299,7 @@ function App() {
                         getData();
                       }}
                     >
-                      CONNECT
+                      SOLD OUT
                     </StyledButton>
                     {blockchain.errorMsg !== "" ? (
                       <>
@@ -361,7 +361,7 @@ function App() {
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
                       <StyledButton
                         disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
+                         onClick={(e) => {
                           e.preventDefault();
                           claimNFTs();
                           getData();
