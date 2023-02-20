@@ -167,7 +167,7 @@ function App() {
 
     //This Contract can only be minted via WhiteList.
     blockchain.smartContract.methods
-      .Mint(mintAmount)
+      .mint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,

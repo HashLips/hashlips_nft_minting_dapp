@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0xb264D5B8ef10bD30bcb4314A625E7a566B58090E",
-  "SCAN_LINK": "https://mumbai.polygonscan.com/address/0xb264d5b8ef10bd30bcb4314a625e7a566b58090e",
+  "CONTRACT_ADDRESS": "0x345ee45395377c9a085de3d461030b72fb47bb6c",
+  "SCAN_LINK": "https://goerli.etherscan.io/address/0x345ee45395377c9a085de3d461030b72fb47bb6c",
   "NETWORK": {
-    "NAME": "Polygon Testnet",
-    "SYMBOL": "Matic",
-    "ID": 80001
+    "NAME": "Goerli Testnet",
+    "SYMBOL": "ETH",
+    "ID": 5
   },
-  "NFT_NAME": "REIGROUP NFT",
-  "SYMBOL": "REIGNFT",
+  "NFT_NAME": "ICAN",
+  "SYMBOL": "ICAN",
   "MAX_SUPPLY": 500,
-  "WEI_COST": 1000000000,
-  "DISPLAY_COST": 1,
+  "WEI_COST": 50000000000000000,
+  "DISPLAY_COST": 0.05,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/reigroup-nft",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/icans",
   "SHOW_BACKGROUND": true
 }
