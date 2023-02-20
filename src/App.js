@@ -7,27 +7,27 @@ import styled from 'styled-components';
 import * as addr from './wallets/merkle';
 
 //Merkle Setup
-const { MerkleTree } = require('merkletreejs')
-const SHA256 = require('crypto-js/sha256')
-const keccak256 = require('keccak256')
+//const { MerkleTree } = require('merkletreejs')
+//const SHA256 = require('crypto-js/sha256')
+//const keccak256 = require('keccak256')
 
-let addresses = '';
+//let addresses = '';
 //merkle root creation
-const promise1 = Promise.resolve(addr);
+//const promise1 = Promise.resolve(addr);
 
-promise1.then((value) => {
+/*promise1.then((value) => {
   console.log("Some Value",value);
   addresses = value;
-  // Expected output: 123
-});
+  
+});*/
 
-const leaves = addresses.map(x => keccak256(x))
+/*const leaves = addresses.map(x => keccak256(x))
 console.log(leaves);
 
 const tree = new MerkleTree(leaves, keccak256, {sortPairs:true})
 const buf2hex = x => '0x' + x.toString('hex');
 
-console.log(buf2hex(tree.getRoot()))
+console.log(buf2hex(tree.getRoot()))*/
 
 //const leaf = keccak256('', '0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B')
 //const proof = tree.getProof(leaf)
@@ -160,14 +160,14 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     //Check Merkle
-    const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+    //const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
     //.map(x=>buf2hex(x.data))
     //const cleanproof = proof.replace(' ','')
-    console.log(test)
+    //console.log(test)
 
     //This Contract can only be minted via WhiteList.
     blockchain.smartContract.methods
-      .whitelistMint(mintAmount,test)
+      .Mint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
         to: CONFIG.CONTRACT_ADDRESS,
@@ -207,11 +207,11 @@ function App() {
 
   const getData = () => {
     if (blockchain.account !== '' && blockchain.smartContract !== null) {
-      console.log('Initial Tree: '+tree)
-      const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+      //console.log('Initial Tree: '+tree)
+      //const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
       //.map(x=>buf2hex(x.data))
       //const cleanproof = proof.replace(' ','')
-      console.log(test)
+      //console.log(test)
       dispatch(fetchData(blockchain.account));
     }
   };
@@ -241,9 +241,9 @@ function App() {
         flex={1}
         ai={'left'}
         style={{ padding: 24, backgroundColor: 'var(--primary)' }}
-        image={CONFIG.SHOW_BACKGROUND ? '/config/images/bg.png' : null}
+        image={CONFIG.SHOW_BACKGROUND ? '/config/images/iCans_BG.webp' : null}
       >
-        <StyledLogo alt={'logo'} src={'/config/images/logo.png'} />
+        
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.Container flex={1} jc={'center'} ai={'center'}>
@@ -253,21 +253,18 @@ function App() {
                 lineHeight:'70px',
                 fontWeight: 'bold',
                 color: 'var(--secondary)',
-              }}>Real Estate investment
-of the Future</s.TextTitle>
+              }}>Interactive Cans by Rescue</s.TextTitle>
 <s.TextSubTitle style={{
                 textAlign: 'left',
                 fontSize: 50,
                 lineHeight:'50px',
                 fontWeight: '300',
                 color: 'var(--primary-text)',
-              }}>Be part of the new movement
-mint your membership pass now.</s.TextSubTitle>
-            <StyledImg alt={'example'} src={'/config/images/nft.png'} />
+              }}>Think Etch ah Sketch Meets Graffiti Artist Rescue on The Blockchain Forever!</s.TextSubTitle>
           </s.Container>
           <s.SpacerLarge />
           <s.Container
-            flex={2}
+            flex={1}
             jc={'center'}
             ai={'center'}
             style={{
@@ -283,7 +280,7 @@ mint your membership pass now.</s.TextSubTitle>
                 fontSize: 50,
                 fontWeight: '300',
                 color: 'var(--primary)',
-              }}>Gold Membership Whitelist Event</s.TextTitle>
+              }}>Mint yourself an iCan then go paint!</s.TextTitle>
             <s.TextTitle
               style={{
                 textAlign: 'center',
