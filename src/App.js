@@ -281,7 +281,7 @@ function App() {
                 fontSize: 50,
                 fontWeight: '300',
                 color: 'var(--primary)',
-              }}>Mint yourself an iCan then go paint!</s.TextTitle>
+              }}>Mint yourself an iCan!</s.TextTitle>
             <s.TextTitle
               style={{
                 textAlign: 'center',
