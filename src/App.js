@@ -242,7 +242,7 @@ function App() {
         flex={1}
         ai={'left'}
         style={{ padding: 24, backgroundColor: 'var(--primary)' }}
-        image={CONFIG.SHOW_BACKGROUND ? '/config/images/iCans_BG.webp' : null}
+        image={CONFIG.SHOW_BACKGROUND ? '/config/images/icans_bg.jpg' : null}
       >
         
         <s.SpacerSmall />
