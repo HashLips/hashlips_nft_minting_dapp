@@ -4,41 +4,19 @@ import { connect } from './redux/blockchain/blockchainActions';
 import { fetchData } from './redux/data/dataActions';
 import * as s from './styles/globalStyles';
 import styled from 'styled-components';
-import * as addr from './wallets/merkle';
 
 //Merkle Setup
-//const { MerkleTree } = require('merkletreejs')
-//const SHA256 = require('crypto-js/sha256')
-//const keccak256 = require('keccak256')
+const { MerkleTree } = require('merkletreejs')
+const SHA256 = require('crypto-js/sha256')
+const keccak256 = require('keccak256')
 
-//let addresses = '';
-//merkle root creation
-//const promise1 = Promise.resolve(addr);
-
-/*promise1.then((value) => {
-  console.log("Some Value",value);
-  addresses = value;
-  
-});*/
-//{blockchain.smartContract.paused().call()}
-
-/*const leaves = addresses.map(x => keccak256(x))
-console.log(leaves);
+const addresses = ['0x63d5E112731bc68BF25D6393902B6b175E116f71','0xf0246f26799a1B245C0480Be28bE8862160c0B39','0x5B38Da6a701c568545dCfcB03FcB875f56beddC4','0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B','0xE8339cfBd960F79182d740a1a1d913ce5796A508','0xb257998Af19276060Ef1dB9Fcc0A3F6AE7BBc9ba']
+const leaves = addresses.map(x => keccak256(x))
 
 const tree = new MerkleTree(leaves, keccak256, {sortPairs:true})
-const buf2hex = x => '0x' + x.toString('hex');
+const buf2hex = x => '0x' + x.toString('hex')
 
-console.log(buf2hex(tree.getRoot()))*/
-
-//const leaf = keccak256('', '0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B')
-//const proof = tree.getProof(leaf)
-//console.log('IS IT ALLOWED? '+proof)
-//console.log(buf2hex(tree.verify(proof, leaf, root)))
-
-//const root = tree.getRoot().toString('hex')
-//const leaf = SHA256('', '0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B')
-//const proof = tree.getProof(leaf)
-//console.log(tree.verify(proof, leaf, root)) // true
+console.log(buf2hex(tree.getRoot()));
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -151,6 +129,47 @@ function App() {
     SHOW_BACKGROUND: false,
   });
 
+
+  const claimWLNFTs = () => {
+    let cost = 0;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmount);
+    let totalGasLimit = String(gasLimit * mintAmount);
+    console.log('Cost: ', totalCostWei);
+    console.log('Gas limit: ', totalGasLimit);
+    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNft(true);
+    //Check Merkle
+    let test2 = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+    //.map(x=>buf2hex(x.data))
+    
+    console.log("Merkle Test: ",test2)
+
+    //This Contract can only be minted via WhiteList.
+    blockchain.smartContract.methods
+      .whitelistMint(mintAmount,test2)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once('error', (err) => {
+        console.log(err);
+        setFeedback('Sorry, something went wrong please try again later.');
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
+
   const claimNFTs = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
@@ -208,11 +227,11 @@ function App() {
 
   const getData = () => {
     if (blockchain.account !== '' && blockchain.smartContract !== null) {
-      //console.log('Initial Tree: '+tree)
-      //const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+      console.log("Initial Tree: "+tree)
+      const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
       //.map(x=>buf2hex(x.data))
-      //const cleanproof = proof.replace(' ','')
-      //console.log(test)
+      //const cleanproof = proof.replace(" ","")
+      console.log(test)
       dispatch(fetchData(blockchain.account));
     }
   };
@@ -227,6 +246,13 @@ function App() {
     const config = await configResponse.json();
     SET_CONFIG(config);
   };
+
+  const isPaused = () => {
+    if(data.paused === true){
+      return true;
+    }
+    return false;
+  }
 
   useEffect(() => {
     getConfig();
@@ -276,12 +302,18 @@ function App() {
               boxShadow: '0px 5px 11px 2px rgba(0,0,0,0.7)',
             }}
           >
-            <s.TextTitle style={{
+           <s.TextTitle style={{
                 textAlign: 'center',
                 fontSize: 50,
                 fontWeight: '300',
                 color: 'var(--primary)',
               }}>Mint yourself an iCan!</s.TextTitle>
+              <s.TextTitle>
+              {isPaused() ? (
+                'Yes it\'s Paused'
+              ):('No it\'s Not Paused')
+              }
+              </s.TextTitle>
             <s.TextTitle
               style={{
                 textAlign: 'center',
@@ -289,7 +321,7 @@ function App() {
                 fontWeight: 'bold',
                 color: 'var(--primary)',
               }}
-            >
+            >              
               {data.totalSupply} / {CONFIG.MAX_SUPPLY}
             </s.TextTitle>
             <s.TextDescription
@@ -418,11 +450,17 @@ function App() {
                         disabled={claimingNft ? 1 : 0}
                         onClick={(e) => {
                           e.preventDefault();
-                          claimNFTs();
+                          {isPaused() ? (
+                            claimWLNFTs()
+                          ):(
+                            claimNFTs()
+                            )
+                          }
+                          //claimNFTs();
                           getData();
                         }}
                       >
-                        {claimingNft ? 'BUSY' : 'BUY'}
+                        {claimingNft ? "BUSY" : isPaused() ? "CLAIM ICAN" : "BUY ICAN"}
                       </StyledButton>
                     </s.Container>
                   </>
