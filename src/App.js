@@ -20,6 +20,7 @@ import * as addr from './wallets/merkle';
   addresses = value;
   
 });*/
+//{blockchain.smartContract.paused().call()}
 
 /*const leaves = addresses.map(x => keccak256(x))
 console.log(leaves);
