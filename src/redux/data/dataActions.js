@@ -21,8 +21,9 @@ const fetchDataFailed = (payload) => {
   };
 };
 
-export const fetchData = () => {
+export const fetchData = (account) => {
   return async (dispatch) => {
+
     dispatch(fetchDataRequest());
     try {
       let totalSupply = await store
@@ -35,10 +36,15 @@ export const fetchData = () => {
       .blockchain.smartContract.methods.paused()
       .call();
 
+      let claimed = await store.getState().blockchain.smartContract.methods.whitelistClaimed(account).call();
+
+      console.log(account);
+
       dispatch(
         fetchDataSuccess({
           totalSupply,
           paused,
+          claimed
         })
       );
     } catch (err) {

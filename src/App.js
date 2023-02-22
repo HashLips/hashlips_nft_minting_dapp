@@ -385,8 +385,7 @@ function App() {
                         dispatch(connect());
                         getData();
                       }}
-                    >
-                      CONNECT
+                    >CONNECT
                     </StyledButton>
                     {blockchain.errorMsg !== '' ? (
                       <>
@@ -460,9 +459,12 @@ function App() {
                           getData();
                         }}
                       >
+                        
                         {claimingNft ? "BUSY" : isPaused() ? "CLAIM ICAN" : "BUY ICAN"}
                       </StyledButton>
+                      
                     </s.Container>
+                    <s.TextTitle>{data.claimed ? ('Already Claimed'):('Ready to claim')}</s.TextTitle>
                   </>
                 )}
               </>
