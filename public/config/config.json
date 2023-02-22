@@ -11,7 +11,7 @@
   "MAX_SUPPLY": 500,
   "WEI_COST": 69000000000000000,
   "DISPLAY_COST": 0.069,
-  "GAS_LIMIT": 100000,
+  "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/icans",
   "SHOW_BACKGROUND": true
