@@ -1,8 +1,8 @@
 {
-  "CONTRACT_ADDRESS": "0x44dc8b33edeb3e2c32209d1926f507ee52fba440",
-  "SCAN_LINK": "https://goerli.etherscan.io/address/0x44dc8b33edeb3e2c32209d1926f507ee52fba440",
+  "CONTRACT_ADDRESS": "0x1227C247E718f0a2F448B2895C3aD404526Ca896",
+  "SCAN_LINK": "https://etherscan.io/address/0x1227c247e718f0a2f448b2895c3ad404526ca896",
   "NETWORK": {
-    "NAME": "Goerli Testnet",
+    "NAME": "Ethereum Mainnet",
     "SYMBOL": "ETH",
     "ID": 5
   },
