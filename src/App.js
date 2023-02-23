@@ -255,6 +255,13 @@ function App() {
     return false;
   }
 
+  const isClaimed = () => {
+    if(data.claimed === true){
+      return true;
+    }
+    return false;
+  }
+
   useEffect(() => {
     getConfig();
   }, []);
@@ -410,10 +417,11 @@ function App() {
                         color: 'var(--primary)',
                       }}
                     >
-                      {feedback}
+                    {isPaused() ? (''):(feedback)}
                     </s.TextDescription>
                     <s.SpacerMedium />
                     <s.Container ai={'center'} jc={'center'} fd={'row'}>
+                    {isPaused() ? (''):(<>
                       <StyledRoundButton
                         style={{ lineHeight: 0.4 }}
                         disabled={claimingNft ? 1 : 0}
@@ -443,29 +451,60 @@ function App() {
                       >
                         +
                       </StyledRoundButton>
+                      </>)}
                     </s.Container>
                     <s.SpacerSmall />
+                    {isClaimed ? (<>
+                                        <s.TextDescription
+                                          style={{
+                                            textAlign: 'center',
+                                            color: 'var(--primary)',
+                                            fontSize: '2rem',
+                                            maxWidth: '70%',
+                                            lineHeight: '2.2rem',
+                                            marginBottom: '50px'
+                                          }}
+                                        >
+                                          {data.claimed ? ('You have Already Claimed your complimentary iCan but you can Mint more during public mint'):('Ready to claim')}
+                                        </s.TextDescription>
+                                        {isPaused() ? ('Public Mint is Paused'):(
+                                         <StyledButton
+                                         disabled={claimingNft ? 1 : 0}
+                                         onClick={(e) => {
+                                           e.preventDefault();
+                                           claimNFTs();
+                                          //claimNFTs();
+                                          getData();
+                                          }}>{claimingNft ? "BUSY" : "BUY ICAN"}</StyledButton>
+                                        )}
+                                       </>
+                    ):(
+                                         <StyledButton
+                                         disabled={claimingNft ? 1 : 0}
+                                         onClick={(e) => {
+                                           e.preventDefault();
+                                           {isPaused() ? (
+                                               claimWLNFTs()
+                                             ):(
+                                               claimNFTs()
+                                             )
+                                           }
+                                           //claimNFTs();
+                                           getData();
+                                         }}
+                                       >
+                                         
+                                         {claimingNft ? "BUSY" : isPaused() ? "CLAIM ICAN" : "BUY ICAN"}
+                                       </StyledButton>
+                    )
+                    
+                  
+                  }
                     <s.Container ai={'center'} jc={'center'} fd={'row'}>
-                      <StyledButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          {isPaused() ? (
-                            claimWLNFTs()
-                          ):(
-                            claimNFTs()
-                            )
-                          }
-                          //claimNFTs();
-                          getData();
-                        }}
-                      >
-                        
-                        {claimingNft ? "BUSY" : isPaused() ? "CLAIM ICAN" : "BUY ICAN"}
-                      </StyledButton>
+   
                       
                     </s.Container>
-                    <s.TextTitle>{data.claimed ? ('Already Claimed'):('Ready to claim')}</s.TextTitle>
+
                   </>
                 )}
               </>
