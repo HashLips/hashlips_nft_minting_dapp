@@ -10,7 +10,7 @@ const truncate = (input, len) =>
 
 export const StyledButton = styled.button`
   padding: 10px;
-  border-radius: 50px;
+  border-radius: 5px;
   border: none;
   background-color: var(--secondary);
   padding: 10px;
@@ -30,13 +30,13 @@ export const StyledButton = styled.button`
 
 export const StyledRoundButton = styled.button`
   padding: 10px;
-  border-radius: 100%;
+  border-radius: 5%;
   border: none;
   background-color: var(--primary);
   padding: 10px;
   font-weight: bold;
   font-size: 15px;
-  color: var(--primary-text);
+  color: var(--secondary-text);
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -76,9 +76,9 @@ export const StyledLogo = styled.img`
 
 export const StyledImg = styled.img`
   box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
+  border: 4px solid var(--secondary);
   background-color: var(--accent);
-  border-radius: 100%;
+  border-radius: 5%;
   width: 200px;
   @media (min-width: 900px) {
     width: 250px;
@@ -99,7 +99,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Click "MINT" to get your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -130,9 +130,11 @@ function App() {
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
     blockchain.smartContract.methods
-      .mint(mintAmount)
+      .publicSaleMint(mintAmount)
       .send({
         gasLimit: String(totalGasLimit),
+        maxPriorityFeePerGas: 1500000000,
+        maxFeePerGas: 30000000000,
         to: CONFIG.CONTRACT_ADDRESS,
         from: blockchain.account,
         value: totalCostWei,
@@ -162,8 +164,8 @@ function App() {
 
   const incrementMintAmount = () => {
     let newMintAmount = mintAmount + 1;
-    if (newMintAmount > 10) {
-      newMintAmount = 10;
+    if (newMintAmount > 5) {
+      newMintAmount = 5;
     }
     setMintAmount(newMintAmount);
   };
@@ -201,12 +203,10 @@ function App() {
         style={{ padding: 24, backgroundColor: "var(--primary)" }}
         image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+        
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
-          </s.Container>
+          
           <s.SpacerLarge />
           <s.Container
             flex={2}
@@ -215,20 +215,28 @@ function App() {
             style={{
               backgroundColor: "var(--accent)",
               padding: 24,
-              borderRadius: 24,
-              border: "4px dashed var(--secondary)",
+              borderRadius: 15,
+              border: "4px solid var(--secondary)",
               boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
             }}
-          >
+          ><s.Container flex={1} jc={"center"} ai={"center"}>
+         <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+          <s.SpacerXSmall />
+          <StyledImg
+            alt={"example"}
+            src={"/config/images/example.gif"}
+            style={{ transform: "scaleX(-1)" }}
+          />
+        </s.Container>
             <s.TextTitle
               style={{
                 textAlign: "center",
-                fontSize: 50,
+                fontSize: 20,
                 fontWeight: "bold",
                 color: "var(--accent-text)",
               }}
             >
-              {data.totalSupply} / {CONFIG.MAX_SUPPLY}
+              200/200
             </s.TextTitle>
             <s.TextDescription
               style={{
@@ -263,14 +271,13 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
-                  {CONFIG.NETWORK.SYMBOL}.
+                  Each {CONFIG.SYMBOL} is  "FREE!" .
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  Excluding gas fees.
+                  Small gas fees apply.
                 </s.TextDescription>
                 <s.SpacerSmall />
                 {blockchain.account === "" ||
@@ -292,7 +299,7 @@ function App() {
                         getData();
                       }}
                     >
-                      CONNECT
+                      SOLD OUT
                     </StyledButton>
                     {blockchain.errorMsg !== "" ? (
                       <>
@@ -300,7 +307,7 @@ function App() {
                         <s.TextDescription
                           style={{
                             textAlign: "center",
-                            color: "var(--accent-text)",
+                            color: "var(--useState-text)",
                           }}
                         >
                           {blockchain.errorMsg}
@@ -313,7 +320,7 @@ function App() {
                     <s.TextDescription
                       style={{
                         textAlign: "center",
-                        color: "var(--accent-text)",
+                        color: "var(--secondary-text)",
                       }}
                     >
                       {feedback}
@@ -334,7 +341,7 @@ function App() {
                       <s.TextDescription
                         style={{
                           textAlign: "center",
-                          color: "var(--accent-text)",
+                          color: "var(--secondary-text)",
                         }}
                       >
                         {mintAmount}
@@ -354,14 +361,15 @@ function App() {
                     <s.Container ai={"center"} jc={"center"} fd={"row"}>
                       <StyledButton
                         disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
+                         onClick={(e) => {
                           e.preventDefault();
                           claimNFTs();
                           getData();
                         }}
                       >
-                        {claimingNft ? "BUSY" : "BUY"}
+                        {claimingNft ? "BUSY" : "MINT"}
                       </StyledButton>
+                      
                     </s.Container>
                   </>
                 )}
@@ -370,38 +378,9 @@ function App() {
             <s.SpacerMedium />
           </s.Container>
           <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container>
+          
         </ResponsiveWrapper>
-        <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            Please make sure you are connected to the right network (
-            {CONFIG.NETWORK.NAME} Mainnet) and the correct address. Please note:
-            Once you make the purchase, you cannot undo this action.
-          </s.TextDescription>
-          <s.SpacerSmall />
-          <s.TextDescription
-            style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
-            }}
-          >
-            We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
-            successfully mint your NFT. We recommend that you don't lower the
-            gas limit.
-          </s.TextDescription>
-        </s.Container>
+        
       </s.Container>
     </s.Screen>
   );

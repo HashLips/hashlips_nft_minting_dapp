@@ -1,18 +1,18 @@
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0x613997c2eb82e553ec1058665317245a075702b5",
+  "SCAN_LINK": "https://etherscan.io/address/0x613997c2eb82e553ec1058665317245a075702b5",
   "NETWORK": {
-    "NAME": "Polygon",
-    "SYMBOL": "Matic",
-    "ID": 137
+    "NAME": "Ethererum",
+    "SYMBOL": "ETH",
+    "ID": 1
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
-  "GAS_LIMIT": 285000,
+  "NFT_NAME": "UNTAMED GIRAFFE LODGE",
+  "SYMBOL": "GIRAFFE",
+  "MAX_SUPPLY": 9998,
+  "WEI_COST": 410000000000000,
+  "DISPLAY_COST": 0.00041,
+  "GAS_LIMIT": 100000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/untamed-giraffe-lodge",
   "SHOW_BACKGROUND": true
 }
