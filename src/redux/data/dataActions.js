@@ -21,23 +21,30 @@ const fetchDataFailed = (payload) => {
   };
 };
 
-export const fetchData = () => {
+export const fetchData = (account) => {
   return async (dispatch) => {
+
     dispatch(fetchDataRequest());
     try {
       let totalSupply = await store
         .getState()
         .blockchain.smartContract.methods.totalSupply()
         .call();
-      // let cost = await store
-      //   .getState()
-      //   .blockchain.smartContract.methods.cost()
-      //   .call();
+
+      let paused = await store
+      .getState()
+      .blockchain.smartContract.methods.paused()
+      .call();
+
+      let claimed = await store.getState().blockchain.smartContract.methods.whitelistClaimed(account).call();
+
+      console.log(account);
 
       dispatch(
         fetchDataSuccess({
           totalSupply,
-          // cost,
+          paused,
+          claimed
         })
       );
     } catch (err) {

@@ -1,9 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { connect } from "./redux/blockchain/blockchainActions";
-import { fetchData } from "./redux/data/dataActions";
-import * as s from "./styles/globalStyles";
-import styled from "styled-components";
+import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { connect } from './redux/blockchain/blockchainActions';
+import { fetchData } from './redux/data/dataActions';
+import * as s from './styles/globalStyles';
+import styled from 'styled-components';
+
+//Merkle Setup
+const { MerkleTree } = require('merkletreejs')
+const SHA256 = require('crypto-js/sha256')
+const keccak256 = require('keccak256')
+
+const addresses = ['0x25907BE2D625EaBFC4b4E83E17dCABE51959e35B','0xfb0D057678E9A03797E8154C49d6316fcFD7918F','0x056bf45a910a1713260448fb35b87109b9b9d80b','0x98359eb889b8b6167806B776446360D1751Fadd7','0x8D50a309199fF26d135f054e51EBAe757315c91C','0x25907BE2D625EaBFC4b4E83E17dCABE51959e35B','0xfb0D057678E9A03797E8154C49d6316fcFD7918F','0x056bf45a910a1713260448fb35b87109b9b9d80b','0x7263a16a44d09fcaa1bb88366eaf0e4d56b665a4','0x90D5b10f2d9211f24E39e8976c2BeC0F4DFb3c14','0x0CfA03c936D4D12209Ee44dcaC4369be84A04557','0xaAB511A6BDc9c8080d4bc7Af1940245fEaB3D2A6','0xDB19C7A164537D3391e6f319E617e5cE4C4F980D','0x5d8a6e6F737A4B7E1e8E7265CB065d0B749121b7','0x051b436B0c8D571C52Adf53df91AF5E08e60bbbE','0xCA779fb29e1168321312a22Cc0099BF910081F8f','0x72dD593D2d7d7203C897CC243531C5B01e29993A','0x7d436a3736a9f83f62Af88232A6D556eC9d05C9B','0x7146f390d0d23460422fe2552c33fe98381b8034','0x473cC656b29F3556fCD1226840cf4DA1F386C533','0x3a5c0a68A0a26374F97A54500728fa6612758906','0xA2bD03f356d776687b9ec74dDcf13ED386530e76','0x41c3daB93881286A4e260577f05FEbC16DaFeD88','0xbE1BFf5270d600FD06009ffF4B72140442c6aF4c','0xe173B2A39Af03970e921fdAe3d81Ca8c54C8DF54','0xB757ee74B21798E7860e613d5d1f4d086F6d1612']
+
+const leaves = addresses.map(x => keccak256(x))
+
+const tree = new MerkleTree(leaves, keccak256, {sortPairs:true})
+const buf2hex = x => '0x' + x.toString('hex')
+
+console.log(buf2hex(tree.getRoot()));
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
@@ -75,16 +89,12 @@ export const StyledLogo = styled.img`
 `;
 
 export const StyledImg = styled.img`
-  box-shadow: 0px 5px 11px 2px rgba(0, 0, 0, 0.7);
-  border: 4px dashed var(--secondary);
-  background-color: var(--accent);
-  border-radius: 100%;
-  width: 200px;
+  width: 100%;
   @media (min-width: 900px) {
-    width: 250px;
+    width: 100%;
   }
   @media (min-width: 1000px) {
-    width: 300px;
+    width: 100%;
   }
   transition: width 0.5s;
 `;
@@ -102,33 +112,81 @@ function App() {
   const [feedback, setFeedback] = useState(`Click buy to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
-    CONTRACT_ADDRESS: "",
-    SCAN_LINK: "",
+    CONTRACT_ADDRESS: '',
+    SCAN_LINK: '',
     NETWORK: {
-      NAME: "",
-      SYMBOL: "",
+      NAME: '',
+      SYMBOL: '',
       ID: 0,
     },
-    NFT_NAME: "",
-    SYMBOL: "",
+    NFT_NAME: '',
+    SYMBOL: '',
     MAX_SUPPLY: 1,
     WEI_COST: 0,
     DISPLAY_COST: 0,
     GAS_LIMIT: 0,
-    MARKETPLACE: "",
-    MARKETPLACE_LINK: "",
+    MARKETPLACE: '',
+    MARKETPLACE_LINK: '',
     SHOW_BACKGROUND: false,
   });
+
+
+  const claimWLNFTs = () => {
+    let cost = 0;
+    let gasLimit = CONFIG.GAS_LIMIT;
+    let totalCostWei = String(cost * mintAmount);
+    let totalGasLimit = String(gasLimit * mintAmount);
+    console.log('Cost: ', totalCostWei);
+    console.log('Gas limit: ', totalGasLimit);
+    setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+    setClaimingNft(true);
+    //Check Merkle
+    let test2 = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+    //.map(x=>buf2hex(x.data))
+    
+    console.log("Merkle Test: ",test2)
+
+    //This Contract can only be minted via WhiteList.
+    blockchain.smartContract.methods
+      .whitelistMint(mintAmount,test2)
+      .send({
+        gasLimit: String(totalGasLimit),
+        to: CONFIG.CONTRACT_ADDRESS,
+        from: blockchain.account,
+        value: totalCostWei,
+      })
+      .once('error', (err) => {
+        console.log(err);
+        setFeedback('Sorry, something went wrong please try again later.');
+        setClaimingNft(false);
+      })
+      .then((receipt) => {
+        console.log(receipt);
+        setFeedback(
+          `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
+        );
+        setClaimingNft(false);
+        dispatch(fetchData(blockchain.account));
+      });
+  };
+
 
   const claimNFTs = () => {
     let cost = CONFIG.WEI_COST;
     let gasLimit = CONFIG.GAS_LIMIT;
     let totalCostWei = String(cost * mintAmount);
     let totalGasLimit = String(gasLimit * mintAmount);
-    console.log("Cost: ", totalCostWei);
-    console.log("Gas limit: ", totalGasLimit);
+    console.log('Cost: ', totalCostWei);
+    console.log('Gas limit: ', totalGasLimit);
     setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
     setClaimingNft(true);
+    //Check Merkle
+    //const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+    //.map(x=>buf2hex(x.data))
+    //const cleanproof = proof.replace(' ','')
+    //console.log(test)
+
+    //This Contract can only be minted via WhiteList.
     blockchain.smartContract.methods
       .mint(mintAmount)
       .send({
@@ -137,9 +195,9 @@ function App() {
         from: blockchain.account,
         value: totalCostWei,
       })
-      .once("error", (err) => {
+      .once('error', (err) => {
         console.log(err);
-        setFeedback("Sorry, something went wrong please try again later.");
+        setFeedback('Sorry, something went wrong please try again later.');
         setClaimingNft(false);
       })
       .then((receipt) => {
@@ -169,21 +227,40 @@ function App() {
   };
 
   const getData = () => {
-    if (blockchain.account !== "" && blockchain.smartContract !== null) {
+    if (blockchain.account !== '' && blockchain.smartContract !== null) {
+      console.log("Initial Tree: "+tree)
+      const test = tree.getProof(keccak256(blockchain.account)).map(x=>buf2hex(x.data))
+      //.map(x=>buf2hex(x.data))
+      //const cleanproof = proof.replace(" ","")
+      console.log(test)
       dispatch(fetchData(blockchain.account));
     }
   };
 
   const getConfig = async () => {
-    const configResponse = await fetch("/config/config.json", {
+    const configResponse = await fetch('/config/config.json', {
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
     });
     const config = await configResponse.json();
     SET_CONFIG(config);
   };
+
+  const isPaused = () => {
+    if(data.paused === true){
+      return true;
+    }
+    return false;
+  }
+
+  const isClaimed = () => {
+    if(data.claimed === true){
+      return true;
+    }
+    return false;
+  }
 
   useEffect(() => {
     getConfig();
@@ -197,46 +274,71 @@ function App() {
     <s.Screen>
       <s.Container
         flex={1}
-        ai={"center"}
-        style={{ padding: 24, backgroundColor: "var(--primary)" }}
-        image={CONFIG.SHOW_BACKGROUND ? "/config/images/bg.png" : null}
+        ai={'left'}
+        style={{ padding: 24, backgroundColor: 'var(--primary)' }}
+        image={CONFIG.SHOW_BACKGROUND ? '/config/images/icans_bg.jpg' : null}
       >
-        <StyledLogo alt={"logo"} src={"/config/images/logo.png"} />
+        
         <s.SpacerSmall />
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg alt={"example"} src={"/config/images/example.gif"} />
+          <s.Container flex={1} jc={'center'} ai={'center'}>
+            <s.TextTitle style={{
+                textAlign: 'left',
+                fontSize: 90,
+                lineHeight:'70px',
+                fontWeight: 'bold',
+                color: 'var(--secondary)',
+              }}>Interactive Cans by Rescue</s.TextTitle>
+<s.TextSubTitle style={{
+                textAlign: 'left',
+                fontSize: 50,
+                lineHeight:'50px',
+                fontWeight: '300',
+                color: 'var(--primary-text)',
+              }}>Think Etch ah Sketch Meets Graffiti Artist Rescue on The Blockchain Forever!</s.TextSubTitle>
           </s.Container>
           <s.SpacerLarge />
           <s.Container
-            flex={2}
-            jc={"center"}
-            ai={"center"}
+            flex={1}
+            jc={'center'}
+            ai={'center'}
             style={{
-              backgroundColor: "var(--accent)",
+              backgroundColor: 'var(--primary-text)',
               padding: 24,
               borderRadius: 24,
-              border: "4px dashed var(--secondary)",
-              boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+              border: '4px solid var(--secondary)',
+              boxShadow: '0px 5px 11px 2px rgba(0,0,0,0.7)',
             }}
           >
+           <s.TextTitle style={{
+                textAlign: 'center',
+                fontSize: 50,
+                fontWeight: '300',
+                color: 'var(--primary)',
+              }}>Mint yourself an iCan!</s.TextTitle>
+              <s.TextTitle>
+              {isPaused() ? (
+                'Yes it\'s Paused'
+              ):('No it\'s Not Paused')
+              }
+              </s.TextTitle>
             <s.TextTitle
               style={{
-                textAlign: "center",
+                textAlign: 'center',
                 fontSize: 50,
-                fontWeight: "bold",
-                color: "var(--accent-text)",
+                fontWeight: 'bold',
+                color: 'var(--primary)',
               }}
-            >
+            >              
               {data.totalSupply} / {CONFIG.MAX_SUPPLY}
             </s.TextTitle>
             <s.TextDescription
               style={{
-                textAlign: "center",
-                color: "var(--primary-text)",
+                textAlign: 'center',
+                color: 'var(--primary)',
               }}
             >
-              <StyledLink target={"_blank"} href={CONFIG.SCAN_LINK}>
+              <StyledLink target={'_blank'} href={CONFIG.SCAN_LINK}>
                 {truncate(CONFIG.CONTRACT_ADDRESS, 15)}
               </StyledLink>
             </s.TextDescription>
@@ -244,42 +346,42 @@ function App() {
             {Number(data.totalSupply) >= CONFIG.MAX_SUPPLY ? (
               <>
                 <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: 'center', color: 'var(--primary)' }}
                 >
                   The sale has ended.
                 </s.TextTitle>
                 <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: 'center', color: 'var(--primary)' }}
                 >
                   You can still find {CONFIG.NFT_NAME} on
                 </s.TextDescription>
                 <s.SpacerSmall />
-                <StyledLink target={"_blank"} href={CONFIG.MARKETPLACE_LINK}>
+                <StyledLink target={'_blank'} href={CONFIG.MARKETPLACE_LINK}>
                   {CONFIG.MARKETPLACE}
                 </StyledLink>
               </>
             ) : (
               <>
                 <s.TextTitle
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: 'center', color: 'var(--primary)' }}
                 >
-                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{" "}
+                  1 {CONFIG.SYMBOL} costs {CONFIG.DISPLAY_COST}{' '}
                   {CONFIG.NETWORK.SYMBOL}.
                 </s.TextTitle>
                 <s.SpacerXSmall />
                 <s.TextDescription
-                  style={{ textAlign: "center", color: "var(--accent-text)" }}
+                  style={{ textAlign: 'center', color: 'var(--primary)' }}
                 >
                   Excluding gas fees.
                 </s.TextDescription>
                 <s.SpacerSmall />
-                {blockchain.account === "" ||
+                {blockchain.account === '' ||
                 blockchain.smartContract === null ? (
-                  <s.Container ai={"center"} jc={"center"}>
+                  <s.Container ai={'center'} jc={'center'}>
                     <s.TextDescription
                       style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
+                        textAlign: 'center',
+                        color: 'var(--primary)',
                       }}
                     >
                       Connect to the {CONFIG.NETWORK.NAME} network
@@ -291,16 +393,15 @@ function App() {
                         dispatch(connect());
                         getData();
                       }}
-                    >
-                      CONNECT
+                    >CONNECT
                     </StyledButton>
-                    {blockchain.errorMsg !== "" ? (
+                    {blockchain.errorMsg !== '' ? (
                       <>
                         <s.SpacerSmall />
                         <s.TextDescription
                           style={{
-                            textAlign: "center",
-                            color: "var(--accent-text)",
+                            textAlign: 'center',
+                            color: 'var(--primary)',
                           }}
                         >
                           {blockchain.errorMsg}
@@ -312,14 +413,15 @@ function App() {
                   <>
                     <s.TextDescription
                       style={{
-                        textAlign: "center",
-                        color: "var(--accent-text)",
+                        textAlign: 'center',
+                        color: 'var(--primary)',
                       }}
                     >
-                      {feedback}
+                    {isPaused() ? (''):(feedback)}
                     </s.TextDescription>
                     <s.SpacerMedium />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
+                    <s.Container ai={'center'} jc={'center'} fd={'row'}>
+                    {isPaused() ? (''):(<>
                       <StyledRoundButton
                         style={{ lineHeight: 0.4 }}
                         disabled={claimingNft ? 1 : 0}
@@ -333,8 +435,8 @@ function App() {
                       <s.SpacerMedium />
                       <s.TextDescription
                         style={{
-                          textAlign: "center",
-                          color: "var(--accent-text)",
+                          textAlign: 'center',
+                          color: 'var(--primary)',
                         }}
                       >
                         {mintAmount}
@@ -349,41 +451,70 @@ function App() {
                       >
                         +
                       </StyledRoundButton>
+                      </>)}
                     </s.Container>
                     <s.SpacerSmall />
-                    <s.Container ai={"center"} jc={"center"} fd={"row"}>
-                      <StyledButton
-                        disabled={claimingNft ? 1 : 0}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          claimNFTs();
-                          getData();
-                        }}
-                      >
-                        {claimingNft ? "BUSY" : "BUY"}
-                      </StyledButton>
+                    {isClaimed ? (<>
+                                        <s.TextDescription
+                                          style={{
+                                            textAlign: 'center',
+                                            color: 'var(--primary)',
+                                            fontSize: '2rem',
+                                            maxWidth: '70%',
+                                            lineHeight: '2.2rem',
+                                            marginBottom: '50px'
+                                          }}
+                                        >
+                                          {data.claimed ? ('You have Already Claimed your complimentary iCan but you can Mint more during public mint'):('Ready to claim')}
+                                        </s.TextDescription>
+                                        {isPaused() ? ('Public Mint is Paused'):(
+                                         <StyledButton
+                                         disabled={claimingNft ? 1 : 0}
+                                         onClick={(e) => {
+                                           e.preventDefault();
+                                           claimNFTs();
+                                          //claimNFTs();
+                                          getData();
+                                          }}>{claimingNft ? "BUSY" : "BUY ICAN"}</StyledButton>
+                                        )}
+                                       </>
+                    ):(
+                                         <StyledButton
+                                         disabled={claimingNft ? 1 : 0}
+                                         onClick={(e) => {
+                                           e.preventDefault();
+                                           {isPaused() ? (
+                                               claimWLNFTs()
+                                             ):(
+                                               claimNFTs()
+                                             )
+                                           }
+                                           //claimNFTs();
+                                           getData();
+                                         }}
+                                       >
+                                         
+                                         {claimingNft ? "BUSY" : isPaused() ? "CLAIM ICAN" : "BUY ICAN"}
+                                       </StyledButton>
+                    )
+                    
+                  
+                  }
+                    <s.Container ai={'center'} jc={'center'} fd={'row'}>
+   
+                      
                     </s.Container>
+
                   </>
                 )}
               </>
             )}
             <s.SpacerMedium />
-          </s.Container>
-          <s.SpacerLarge />
-          <s.Container flex={1} jc={"center"} ai={"center"}>
-            <StyledImg
-              alt={"example"}
-              src={"/config/images/example.gif"}
-              style={{ transform: "scaleX(-1)" }}
-            />
-          </s.Container>
-        </ResponsiveWrapper>
-        <s.SpacerMedium />
-        <s.Container jc={"center"} ai={"center"} style={{ width: "70%" }}>
+            <s.Container jc={'center'} ai={'center'} style={{ width: '70%' }}>
           <s.TextDescription
             style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
+              textAlign: 'center',
+              color: 'var(--primary)',
             }}
           >
             Please make sure you are connected to the right network (
@@ -391,17 +522,21 @@ function App() {
             Once you make the purchase, you cannot undo this action.
           </s.TextDescription>
           <s.SpacerSmall />
-          <s.TextDescription
+          {/*<s.TextDescription
             style={{
-              textAlign: "center",
-              color: "var(--primary-text)",
+              textAlign: 'center',
+              color: 'var(--primary)',
             }}
           >
             We have set the gas limit to {CONFIG.GAS_LIMIT} for the contract to
             successfully mint your NFT. We recommend that you don't lower the
             gas limit.
-          </s.TextDescription>
+          </s.TextDescription>*/}
         </s.Container>
+          </s.Container>
+          <s.SpacerLarge />
+        </ResponsiveWrapper>
+        <s.SpacerMedium />
       </s.Container>
     </s.Screen>
   );
